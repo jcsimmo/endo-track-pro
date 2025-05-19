@@ -34,7 +34,6 @@ export default function CustomerDetails() {
   // State for Zoho data
   const [cohorts, setCohorts] = useState<Cohort[]>([]);
   const [customerCohorts, setCustomerCohorts] = useState<Cohort[]>([]);
-  null
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -161,8 +160,6 @@ export default function CustomerDetails() {
     loadData();
   };
   
-  null
-  
   // Calculate customer statistics
   const calculateCustomerStats = () => {
     if (!customerCohorts.length) return { totalCohorts: 0, activeUnits: 0, totalUnits: 0, usedReplacements: 0, totalReplacements: 0 };
@@ -218,8 +215,8 @@ export default function CustomerDetails() {
           <XCircle className="h-12 w-12 text-amber-500 mb-4 mx-auto" />
           <h2 className="text-xl font-medium mb-2">Customer Not Found</h2>
           <p className="text-muted-foreground mb-4">The requested customer could not be found or has no cohorts.</p>
-          <Button 
-            onClick={() => navigate('/dashboard')}
+          <Button
+            onClick={() => React.startTransition(() => navigate('/dashboard'))}
             variant="outline"
           >
             Return to Dashboard
@@ -240,15 +237,15 @@ export default function CustomerDetails() {
             <h1 className="text-xl font-semibold">EndoTrack Pro</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button 
+            <Button
               variant="ghost"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => React.startTransition(() => navigate("/dashboard"))}
             >
               Dashboard
             </Button>
-            <Button 
+            <Button
               variant="outline"
-              onClick={() => navigate("/login")}
+              onClick={() => React.startTransition(() => navigate("/login"))}
             >
               Log Out
             </Button>
@@ -259,10 +256,10 @@ export default function CustomerDetails() {
       <main className="container mx-auto py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center mb-6">
-            <Button 
-              variant="ghost" 
-              className="mr-2" 
-              onClick={() => navigate('/dashboard')}
+            <Button
+              variant="ghost"
+              className="mr-2"
+              onClick={() => React.startTransition(() => navigate('/dashboard'))}
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Back to Dashboard
@@ -349,7 +346,7 @@ export default function CustomerDetails() {
                       <div 
                         key={cohort.id}
                         className={`p-3 rounded-md cursor-pointer transition-colors hover:bg-muted border border-transparent hover:border-primary/50`}
-                        onClick={() => navigate(`/CohortDetails?id=${cohort.id}`)}
+                        onClick={() => React.startTransition(() => navigate(`/CohortDetails?id=${cohort.id}`))}
                       >
                         <div className="flex justify-between items-start">
                           <div>

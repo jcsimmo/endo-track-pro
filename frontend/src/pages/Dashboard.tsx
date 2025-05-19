@@ -272,15 +272,15 @@ export default function Dashboard() {
             <h1 className="text-xl font-semibold">EndoTrack Pro</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button 
+            <Button
               variant="ghost"
-              onClick={() => navigate("/")}
+              onClick={() => React.startTransition(() => navigate("/"))}
             >
               Home
             </Button>
-            <Button 
+            <Button
               variant="outline"
-              onClick={() => navigate("/login")}
+              onClick={() => React.startTransition(() => navigate("/login"))}
             >
               Log Out
             </Button>
@@ -298,9 +298,9 @@ export default function Dashboard() {
               </p>
             </div>
             <div>
-              <Button 
+              <Button
                 variant="outline"
-                onClick={() => navigate("/admin")}
+                onClick={() => React.startTransition(() => navigate("/admin"))}
               >
                 Admin Access
               </Button>
@@ -366,9 +366,9 @@ export default function Dashboard() {
                     <div className="space-y-1">
                       {customerGroups.map(group => (
                         <div key={group.customer} className="border rounded-md overflow-hidden mb-3">
-                          <div 
+                          <div
                             className="flex w-full items-center justify-between px-4 py-3 hover:bg-muted/30 cursor-pointer"
-                            onClick={() => navigate(`/customer-details?customer=${encodeURIComponent(group.customer)}`)}
+                            onClick={() => React.startTransition(() => navigate(`/customer-details?customer=${encodeURIComponent(group.customer)}`))}
                           >
                             <div className="flex items-center">
                               <div className="mr-2">
@@ -472,11 +472,11 @@ export default function Dashboard() {
                           )}
                         </div>
                         <div className="mt-3">
-                          <Button 
-                            variant="outline" 
+                          <Button
+                            variant="outline"
                             size="sm"
                             className="w-full"
-                            onClick={() => navigate(`/cohort-details?id=${searchResult.cohort.id}`)}
+                            onClick={() => React.startTransition(() => navigate(`/cohort-details?id=${searchResult.cohort.id}`))}
                           >
                             View Full Cohort Details
                           </Button>
@@ -516,11 +516,11 @@ export default function Dashboard() {
                               </div>
                               <div className="flex flex-col items-end">
                                 <div className="text-amber-600 font-medium">{new Date(cohort.date).toLocaleDateString()}</div>
-                                <Button 
-                                  variant="ghost" 
-                                  size="sm" 
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
                                   className="h-7 px-2"
-                                  onClick={() => navigate(`/cohort-details?id=${cohort.id}`)}
+                                  onClick={() => React.startTransition(() => navigate(`/cohort-details?id=${cohort.id}`))}
                                 >
                                   Details
                                 </Button>

@@ -25,11 +25,11 @@ export default function Login() {
       if (isSignUp) {
         await createUserWithEmailAndPassword(firebaseAuth, email, password);
         toast.success("Account created successfully!");
-        navigate("/dashboard");
+        React.startTransition(() => navigate("/dashboard"));
       } else {
         await signInWithEmailAndPassword(firebaseAuth, email, password);
         toast.success("Signed in successfully!");
-        navigate("/dashboard");
+        React.startTransition(() => navigate("/dashboard"));
       }
     } catch (error: any) {
       console.error("Authentication error:", error);
@@ -44,7 +44,7 @@ export default function Login() {
     try {
       await signInWithPopup(firebaseAuth, new GoogleAuthProvider());
       toast.success("Signed in with Google successfully!");
-      navigate("/dashboard");
+      React.startTransition(() => navigate("/dashboard"));
     } catch (error: any) {
       console.error("Google sign-in error:", error);
       toast.error(error.message || "Google sign-in failed. Please try again.");
@@ -181,7 +181,7 @@ export default function Login() {
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={() => navigate("/")}
+              onClick={() => React.startTransition(() => navigate("/"))}
               type="button"
             >
               Back to Home

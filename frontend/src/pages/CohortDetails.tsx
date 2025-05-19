@@ -101,15 +101,15 @@ export default function CohortDetails() {
             <h1 className="text-xl font-semibold">EndoTrack Pro</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button 
+            <Button
               variant="ghost"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => React.startTransition(() => navigate("/dashboard"))}
             >
               Dashboard
             </Button>
-            <Button 
+            <Button
               variant="outline"
-              onClick={() => navigate("/login")}
+              onClick={() => React.startTransition(() => navigate("/login"))}
             >
               Log Out
             </Button>
@@ -120,10 +120,10 @@ export default function CohortDetails() {
       <main className="container mx-auto py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center mb-6">
-            <Button 
-              variant="ghost" 
-              className="mr-2" 
-              onClick={() => navigate('/dashboard')}
+            <Button
+              variant="ghost"
+              className="mr-2"
+              onClick={() => React.startTransition(() => navigate('/dashboard'))}
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Back to Dashboard

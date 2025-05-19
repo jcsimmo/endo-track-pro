@@ -25,9 +25,9 @@ export default function App() {
               <div className="w-24 h-10 bg-muted animate-pulse rounded-md"></div>
             ) : user ? (
               <div className="flex items-center space-x-4">
-                <Button 
-                  variant="outline" 
-                  onClick={() => navigate("/dashboard")}
+                <Button
+                  variant="outline"
+                  onClick={() => React.startTransition(() => navigate("/dashboard"))}
                 >
                   Dashboard
                 </Button>
@@ -40,14 +40,14 @@ export default function App() {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Button 
-                  variant="outline" 
-                  onClick={() => navigate("/login")}
+                <Button
+                  variant="outline"
+                  onClick={() => React.startTransition(() => navigate("/login"))}
                 >
                   Log In
                 </Button>
-                <Button 
-                  onClick={() => navigate("/login")}
+                <Button
+                  onClick={() => React.startTransition(() => navigate("/login"))}
                 >
                   Get Started
                 </Button>
@@ -70,16 +70,16 @@ export default function App() {
                   EndoTrack Pro helps medical equipment administrators monitor endoscope repair cycles, track replacement chains, and manage orphaned serials with clinical precision.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    size="lg" 
-                    onClick={() => navigate("/login")}
+                  <Button
+                    size="lg"
+                    onClick={() => React.startTransition(() => navigate("/login"))}
                   >
                     Start Tracking Today
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="lg"
-                    onClick={() => navigate("/login")}
+                    onClick={() => React.startTransition(() => navigate("/login"))}
                   >
                     Schedule Demo
                   </Button>
@@ -259,10 +259,10 @@ export default function App() {
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Join medical equipment administrators who are using EndoTrack Pro to maintain precision tracking of their endoscope inventory and repair cycles.
             </p>
-            <Button 
-              size="lg" 
-              variant="secondary" 
-              onClick={() => navigate("/login")}
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => React.startTransition(() => navigate("/login"))}
               className="font-medium"
             >
               Get Started Today
