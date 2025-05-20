@@ -156,4 +156,29 @@ export class Brain<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
       type: ContentType.Json,
       ...params,
     });
+
+  /**
+   * @description Trigger processing of all clinics
+   * @request GET:/routes/process-clinics
+   */
+  process_clinics = (params: RequestParams = {}) =>
+    this.request<any, any>({
+      path: `/routes/process-clinics`,
+      method: "GET",
+      ...params,
+    });
+
+  /**
+   * @description Download aggregated clinic data
+   * @request GET:/routes/download-aggregated/{json_key}
+   */
+  download_aggregated_json = (
+    { jsonKey }: DownloadAggregatedParams,
+    params: RequestParams = {}
+  ) =>
+    this.request<DownloadAggregatedData, DownloadAggregatedError>({
+      path: `/routes/download-aggregated/${jsonKey}`,
+      method: "GET",
+      ...params,
+    });
 }

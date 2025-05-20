@@ -8,6 +8,7 @@ import {
   ListCustomersData,
   ProcessRequest,
   ProcessSalesDataEndpointData,
+  DownloadAggregatedData,
   RunDataExtractionData,
 } from "./data-contracts";
 
@@ -156,5 +157,29 @@ export namespace Brain {
     export type RequestBody = ProcessRequest;
     export type RequestHeaders = {};
     export type ResponseBody = ProcessSalesDataEndpointData;
+  }
+
+  /**
+   * @name process_clinics
+   * @request GET:/routes/process-clinics
+   */
+  export namespace process_clinics {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = any;
+  }
+
+  /**
+   * @name download_aggregated_json
+   * @request GET:/routes/download-aggregated/{json_key}
+   */
+  export namespace download_aggregated_json {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = DownloadAggregatedData;
   }
 }
