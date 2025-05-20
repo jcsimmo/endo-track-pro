@@ -132,3 +132,13 @@ export type DownloadJsonError = HTTPValidationError;
 export type ProcessSalesDataEndpointData = Record<string, any>;
 
 export type ProcessSalesDataEndpointError = HTTPValidationError;
+
+export interface DownloadAggregatedParams {
+  /** Json Key */
+  jsonKey: string;
+}
+
+export type DownloadAggregatedData = any;
+
+export type DownloadAggregatedError = HTTPValidationError;
+
