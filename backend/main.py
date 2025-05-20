@@ -19,7 +19,12 @@ def get_router_config() -> dict:
 
 
 def is_auth_disabled(router_config: dict, name: str) -> bool:
-    return router_config["routers"][name]["disableAuth"]
+    """Return True if authentication is disabled for the given router."""
+    try:
+        return router_config["routers"][name]["disableAuth"]
+    except Exception:
+        # Default to requiring auth when configuration is missing
+        return False
 
 
 def import_api_routers() -> APIRouter:
