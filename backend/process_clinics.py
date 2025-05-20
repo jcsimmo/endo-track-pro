@@ -173,13 +173,12 @@ def main():
 
         # --- ADDED: Copy aggregated data to frontend public directory ---
         repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        frontend_public_data_path = os.path.join(repo_root, "frontend", "public", "all_clinics_aggregated_csa_data.json")
-        frontend_public_dir = os.path.dirname(frontend_public_data_path)
+        frontend_public_dir = os.path.join(repo_root, "frontend", "public")
+        frontend_public_data_path = os.path.join(frontend_public_dir, "all_clinics_aggregated_csa_data.json")
 
         try:
-            if not os.path.exists(frontend_public_dir):
-                os.makedirs(frontend_public_dir, exist_ok=True)
-                print(f"Created frontend public data directory: {frontend_public_dir}")
+            os.makedirs(frontend_public_dir, exist_ok=True)
+            print(f"Ensured frontend public directory exists: {frontend_public_dir}")
 
             shutil.copy2(aggregated_output_path, frontend_public_data_path)
             print(f"Successfully copied aggregated data to frontend public directory: {frontend_public_data_path}")
