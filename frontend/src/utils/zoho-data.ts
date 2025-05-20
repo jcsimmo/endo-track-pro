@@ -1034,3 +1034,32 @@ const processSalesData = (data: any): Cohort[] => {
   
   return cohorts;
 };
+
+/**
+ * Fetch aggregated clinic CSA data from the public directory
+ */
+export const fetchAggregatedClinicData = async (
+  setIsLoading?: (loading: boolean) => void,
+  setError?: (error: string | null) => void
+): Promise<Record<string, Cohort[]>> => {
+  if (setIsLoading) setIsLoading(true);
+  if (setError) setError(null);
+
+  try {
+    const response = await fetch('/all_clinics_aggregated_csa_data.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch aggregated data: ${response.status} ${response.statusText}`);
+    }
+    const rawData = await response.json();
+    const result: Record<string, Cohort[]> = {};
+    for (const [clinicName, clinicData] of Object.entries<any>(rawData)) {
+      result[clinicName] = processZohoData(clinicData);
+    }
+    return result;
+  } catch (err) {
+    if (setError) setError(err instanceof Error ? err.message : String(err));
+    throw err;
+  } finally {
+    if (setIsLoading) setIsLoading(false);
+  }
+};
