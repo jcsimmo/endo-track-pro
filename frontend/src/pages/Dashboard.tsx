@@ -7,9 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Cohort, Serial } from "utils/cohort-types";
-import { fetchZohoData } from "utils/zoho-data";
+import { fetchAggregatedClinicData } from "utils/zoho-data";
 import { XCircle, ChevronDown, ChevronRight, AlertTriangle, CheckCircle } from "lucide-react";
 import { Spinner } from "components/Spinner";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -98,25 +98,39 @@ export default function Dashboard() {
     setIsSearching(false);
   };
 
-  // State for Zoho data
+  // State for aggregated clinic data
+  const [clinicCohorts, setClinicCohorts] = useState<Record<string, Cohort[]>>({});
+  const [selectedClinic, setSelectedClinic] = useState<string>("");
   const [cohorts, setCohorts] = useState<Cohort[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const clinicNames = Object.keys(clinicCohorts);
 
   // Fetch data on component mount
   useEffect(() => {
     const loadData = async () => {
       try {
-        const cohortsData = await fetchZohoData(setIsLoading, setError);
-        console.log("Received cohorts in Dashboard page:", cohortsData.length);
-        setCohorts(cohortsData);
+        const data = await fetchAggregatedClinicData(setIsLoading, setError);
+        setClinicCohorts(data);
+        const clinics = Object.keys(data);
+        if (clinics.length > 0) {
+          setSelectedClinic(clinics[0]);
+          setCohorts(data[clinics[0]]);
+        }
       } catch (err) {
-        // Error is already handled in fetchZohoData
+        // Error is already handled in fetchAggregatedClinicData
       }
     };
 
     loadData();
   }, []);
+
+  // Change selected clinic
+  const handleClinicChange = (clinic: string) => {
+    setSelectedClinic(clinic);
+    setCohorts(clinicCohorts[clinic] || []);
+  };
 
   // Function to retry data loading
   const retryLoading = () => {
@@ -125,11 +139,17 @@ export default function Dashboard() {
 
     const loadData = async () => {
       try {
-        const cohortsData = await fetchZohoData(setIsLoading, setError);
-        console.log("Retried data load in Dashboard page:", cohortsData.length);
-        setCohorts(cohortsData);
+        const data = await fetchAggregatedClinicData(setIsLoading, setError);
+        setClinicCohorts(data);
+        const clinics = Object.keys(data);
+        if (clinics.length > 0) {
+          setSelectedClinic(clinics[0]);
+          setCohorts(data[clinics[0]]);
+        } else {
+          setCohorts([]);
+        }
       } catch (err) {
-        // Error is already handled in fetchZohoData
+        // Error is already handled in fetchAggregatedClinicData
       }
     };
 
@@ -306,6 +326,18 @@ export default function Dashboard() {
               </Button>
             </div>
           </div>
+
+          {clinicNames.length > 1 && (
+            <Tabs value={selectedClinic} onValueChange={handleClinicChange} className="mb-6">
+              <TabsList>
+                {clinicNames.map(name => (
+                  <TabsTrigger key={name} value={name}>
+                    {name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          )}
 
           {/* Main Layout */}
           <div className="space-y-6">
