@@ -10,35 +10,53 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 backend_script_path = os.path.join(script_dir, "backend", "run.sh")
 frontend_script_path = os.path.join(script_dir, "frontend", "run.sh")
 
+# Function to kill any process running on port 8123
+def kill_port_8123():
+    try:
+        print("Checking for any existing processes on port 8123...")
+        # Get process IDs using port 8123
+        result = subprocess.run(
+            ["lsof", "-ti:8123"],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        
+        if result.returncode == 0 and result.stdout.strip():
+            pids = result.stdout.strip().split('\n')
+            print(f"Found processes on port 8123: {pids}")
+            
+            # Kill the processes
+            for pid in pids:
+                if pid.strip():
+                    try:
+                        subprocess.run(["kill", "-9", pid.strip()], check=True)
+                        print(f"Killed process {pid.strip()}")
+                    except subprocess.CalledProcessError as e:
+                        print(f"Failed to kill process {pid.strip()}: {e}")
+        else:
+            print("No processes found on port 8123")
+    except FileNotFoundError:
+        print("lsof command not found - skipping port cleanup")
+    except Exception as e:
+        print(f"Error during port cleanup: {e}")
+
 # Function to execute a script
 def run_script(script_path, name):
-    print(f"Starting {name} from {script_path}...")
+    print(f"Starting {name} from {script_path} (output will be in this terminal)...")
     # Ensure the script is executable
     subprocess.run(["chmod", "+x", script_path], check=True)
-    # Run the script in a new terminal window if possible, or as a background process
-    # For macOS, using 'open -a Terminal' is a common way to open a new terminal
-    # For Linux, 'gnome-terminal --' or 'xterm -e' might be used
-    # For Windows, 'start cmd /k'
-    # As a fallback, run as a subprocess without a new terminal window
     try:
-        if sys.platform == "darwin": # macOS
-            process = subprocess.Popen(["open", "-a", "Terminal", script_path], cwd=os.path.dirname(script_path))
-        elif sys.platform.startswith("linux"): # Linux
-            # Try gnome-terminal, then xterm as fallbacks
-            try:
-                process = subprocess.Popen(["gnome-terminal", "--", script_path], cwd=os.path.dirname(script_path))
-            except FileNotFoundError:
-                try:
-                    process = subprocess.Popen(["xterm", "-e", script_path], cwd=os.path.dirname(script_path))
-                except FileNotFoundError:
-                    print(f"Could not find gnome-terminal or xterm. Running {name} in the background.")
-                    process = subprocess.Popen([script_path], cwd=os.path.dirname(script_path), preexec_fn=os.setsid if sys.platform != "win32" else None)
-        elif sys.platform == "win32": # Windows
-            process = subprocess.Popen(["start", "cmd", "/k", script_path], shell=True, cwd=os.path.dirname(script_path))
-        else: # Fallback for other OS
-            print(f"Unsupported OS for opening new terminal. Running {name} in the background.")
-            process = subprocess.Popen([script_path], cwd=os.path.dirname(script_path), preexec_fn=os.setsid if sys.platform != "win32" else None)
-        print(f"{name} started with PID: {process.pid if hasattr(process, 'pid') else 'N/A (likely new terminal)'}")
+        # Run the script as a direct child process.
+        # Its output (stdout/stderr) will be inherited by this script's terminal.
+        process = subprocess.Popen(
+            [script_path],
+            cwd=os.path.dirname(script_path),
+            # preexec_fn is used on POSIX to make the child its own process group leader.
+            # This allows os.killpg to terminate the entire group later.
+            preexec_fn=os.setsid if sys.platform != "win32" else None
+        )
+        print(f"{name} started with PID: {process.pid}")
         return process
     except Exception as e:
         print(f"Failed to start {name}: {e}")
@@ -51,23 +69,29 @@ def cleanup_processes(signum, frame):
     for p_info in processes:
         name = p_info["name"]
         process = p_info["process"]
-        if process and hasattr(process, 'pid') and process.poll() is None: # Check if process is running
+        # All processes should now have a PID and be directly managed.
+        if process and process.poll() is None: # Check if process is running
             print(f"Terminating {name} (PID: {process.pid})...")
             if sys.platform == "win32":
+                # For Windows, Popen creates a new process group by default if shell=False (which it is here).
+                # Terminating the parent should be enough, but taskkill /T attempts to kill child processes.
                 subprocess.run(["taskkill", "/PID", str(process.pid), "/F", "/T"], check=False)
             else:
                 try:
-                    os.killpg(os.getpgid(process.pid), signal.SIGTERM) # Send SIGTERM to the process group
+                    # os.setsid in Popen made the child a new session leader and process group leader.
+                    # os.killpg will send the signal to all processes in that group.
+                    os.killpg(os.getpgid(process.pid), signal.SIGTERM)
                 except ProcessLookupError:
                     print(f"{name} (PID: {process.pid}) already terminated.")
                 except Exception as e:
-                    print(f"Error terminating {name} (PID: {process.pid}): {e}. Attempting SIGKILL.")
+                    print(f"Error terminating {name} (PID: {process.pid}) with SIGTERM: {e}. Attempting SIGKILL.")
                     try:
                         os.killpg(os.getpgid(process.pid), signal.SIGKILL)
                     except Exception as e_kill:
                          print(f"Error sending SIGKILL to {name} (PID: {process.pid}): {e_kill}")
-        elif process and not hasattr(process, 'pid'):
-             print(f"{name} was likely started in a separate terminal. Please close it manually.")
+        elif process and process.poll() is not None:
+            print(f"{name} (PID: {process.pid}) had already terminated with code {process.poll()}.")
+
     sys.exit(0)
 
 # Register signal handlers for graceful shutdown
@@ -75,6 +99,9 @@ signal.signal(signal.SIGINT, cleanup_processes) # Ctrl+C
 signal.signal(signal.SIGTERM, cleanup_processes) # Termination signal
 
 if __name__ == "__main__":
+    # Kill any existing processes on port 8123 before starting
+    kill_port_8123()
+    
     backend_process = run_script(backend_script_path, "Backend")
     if backend_process:
         processes.append({"name": "Backend", "process": backend_process})
@@ -84,7 +111,7 @@ if __name__ == "__main__":
         processes.append({"name": "Frontend", "process": frontend_process})
 
     print("\nBoth frontend and backend processes have been initiated.")
-    print("Backend typically runs at: http://localhost:8000")
+    print("Backend typically runs at: http://localhost:8123") # Updated port
     print("Frontend typically runs at: http://localhost:5173 (or http://localhost:3000 if Vite default)")
     print("Press Ctrl+C to shut down all processes.")
 

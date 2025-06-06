@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent, CardDescription, CardTitle } from "@/com
 import { ChevronLeft } from "lucide-react";
 import { CohortDetailView, CohortEmptyState } from "components/CohortDetailView";
 import { Cohort } from "utils/cohort-types";
-import { fetchZohoData } from "utils/zoho-data";
+import { fetchAggregatedClinicData } from "utils/zoho-data";
 import { Spinner } from "components/Spinner";
 import { Progress } from "@/components/ui/progress";
 import { XCircle } from "lucide-react";
@@ -17,21 +17,34 @@ export default function CohortDetails() {
   const { user } = useUserGuardContext();
   
   // Get the cohort ID from URL query params
-  const cohortId = searchParams.get('id');
+  const cohortId = searchParams.get('cohortId');
   
-  // State for Zoho data
-  const [cohorts, setCohorts] = useState<Cohort[]>([]);
+  // State for aggregated data
+  const [allCohorts, setAllCohorts] = useState<Cohort[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   // Fetch data on component mount
   useEffect(() => {
     const loadData = async () => {
+      console.log("CohortDetails: Starting data load...");
       try {
-        const cohortsData = await fetchZohoData(setIsLoading, setError);
-        setCohorts(cohortsData);
+        const aggregatedData = await fetchAggregatedClinicData(setIsLoading, setError);
+        console.log("CohortDetails: Received aggregated data:", aggregatedData);
+        
+        // Flatten all cohorts from all clinics into a single array
+        const allCohortsArray: Cohort[] = [];
+        for (const clinicData of Object.values(aggregatedData)) {
+          if (clinicData.cohorts && Array.isArray(clinicData.cohorts)) {
+            allCohortsArray.push(...clinicData.cohorts);
+          }
+        }
+        
+        console.log("CohortDetails: Flattened cohorts:", allCohortsArray);
+        setAllCohorts(allCohortsArray);
       } catch (err) {
-        // Error is already handled in fetchZohoData
+        console.error("CohortDetails: Error loading data:", err);
+        // Error is already handled in fetchAggregatedClinicData
       }
     };
     
@@ -39,7 +52,7 @@ export default function CohortDetails() {
   }, []);
   
   // Find the selected cohort
-  const selectedCohort = cohortId ? cohorts.find(c => c.id === cohortId) : null;
+  const selectedCohort = cohortId ? allCohorts.find(c => c.id === cohortId) : null;
   
   // Function to retry data loading
   const retryLoading = () => {
@@ -48,10 +61,19 @@ export default function CohortDetails() {
     
     const loadData = async () => {
       try {
-        const cohortsData = await fetchZohoData(setIsLoading, setError);
-        setCohorts(cohortsData);
+        const aggregatedData = await fetchAggregatedClinicData(setIsLoading, setError);
+        
+        // Flatten all cohorts from all clinics into a single array
+        const allCohortsArray: Cohort[] = [];
+        for (const clinicData of Object.values(aggregatedData)) {
+          if (clinicData.cohorts && Array.isArray(clinicData.cohorts)) {
+            allCohortsArray.push(...clinicData.cohorts);
+          }
+        }
+        
+        setAllCohorts(allCohortsArray);
       } catch (err) {
-        // Error is already handled in fetchZohoData
+        // Error is already handled in fetchAggregatedClinicData
       }
     };
     

@@ -1,0 +1,158 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/tampa_bay_breathe_free/tampa_bay_breathe_free_step1_data.json",
+        "customer_name_or_group": "Group (3565249000001405001)",
+        "contact_ids_processed": [
+            "3565249000001405001"
+        ],
+        "sales_order_count": 2,
+        "sales_return_count": 1,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00048",
+                "csaLength": "2 year",
+                "startDate": "2023-04-25",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-04-25",
+                "warningDate": "2025-02-24",
+                "remainingReplacements": 6,
+                "totalReplacements": 8,
+                "initialScopeCount": 2,
+                "currentValidatedInFieldCount": 2,
+                "available_slots_pre_orphan_assignment": 0
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0563",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2570",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.2570",
+                        "handoffs": [
+                            "Returned 380.0563 on 2024-04-01, replaced by 380.2570 shipped on 2024-04-08"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0577",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2290",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.2290",
+                        "handoffs": [
+                            "Returned 380.0577 on 2024-04-01, replaced by 380.2290 shipped on 2024-04-08"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [],
+    "status_summary": {
+        "total_shipped_unique": 4,
+        "total_returned_plausible_unique": 2,
+        "serials_involved_in_validated_chains": 4,
+        "serials_involved_in_any_chain_analysis": 4,
+        "identified_orphan_serials": 2,
+        "suspected_in_field": {
+            "count": 2,
+            "serial_numbers": [
+                "380.2290",
+                "380.2570"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "380.2570": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00238",
+            "soCustomerName": "Tampa Bay Breathe Free Sinus & Allergy",
+            "salesOrderDate": "2024-04-02",
+            "packageNumber": "PKG-00382",
+            "shipmentDate": "2024-04-02"
+        },
+        "380.2290": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00238",
+            "soCustomerName": "Tampa Bay Breathe Free Sinus & Allergy",
+            "salesOrderDate": "2024-04-02",
+            "packageNumber": "PKG-00382",
+            "shipmentDate": "2024-04-02"
+        },
+        "SMNK217GWC22048": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00048",
+            "soCustomerName": "Tampa Bay Breathe Free Sinus & Allergy",
+            "salesOrderDate": "2023-04-05",
+            "packageNumber": "PKG-00124",
+            "shipmentDate": "2023-04-25"
+        },
+        "SMNK217GWC22049": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00048",
+            "soCustomerName": "Tampa Bay Breathe Free Sinus & Allergy",
+            "salesOrderDate": "2023-04-05",
+            "packageNumber": "PKG-00124",
+            "shipmentDate": "2023-04-25"
+        },
+        "380.0577": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00048",
+            "soCustomerName": "Tampa Bay Breathe Free Sinus & Allergy",
+            "salesOrderDate": "2023-04-05",
+            "packageNumber": "PKG-00127",
+            "shipmentDate": "2023-04-25"
+        },
+        "380.0563": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00048",
+            "soCustomerName": "Tampa Bay Breathe Free Sinus & Allergy",
+            "salesOrderDate": "2023-04-05",
+            "packageNumber": "PKG-00127",
+            "shipmentDate": "2023-04-25"
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 0,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [],
+        "violation_count": 0,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 1.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}

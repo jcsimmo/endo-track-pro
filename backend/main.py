@@ -3,10 +3,49 @@ import pathlib
 import json
 import dotenv
 from fastapi import FastAPI, APIRouter, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager # Added for lifespan
+import asyncio # Added for running synchronous code in async context
+import traceback # Added for detailed exception logging
+
+# Assuming process_clinics.py is in the same directory or accessible via PYTHONPATH
+from process_clinics import get_aggregated_clinic_data, load_data_from_disk # Import the new function
+
+print("DEBUG: backend/main.py top-level imports complete.")
 
 dotenv.load_dotenv()
+print("DEBUG: dotenv.load_dotenv() called.")
 
 from databutton_app.mw.auth_mw import AuthConfig, get_authorized_user
+print("DEBUG: AuthConfig and get_authorized_user imported.")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("DEBUG: Entering lifespan context manager.")
+    print("Attempting to load clinic data from disk on startup...")
+    try:
+        loop = asyncio.get_event_loop()
+        # Run the synchronous load_data_from_disk in an executor
+        disk_data = await loop.run_in_executor(None, load_data_from_disk)
+        if disk_data:
+            app.state.clinic_data = disk_data
+            print("Successfully loaded clinic data from disk into app.state.")
+        else:
+            app.state.clinic_data = {}
+            print("Failed to load complete data from disk (or no data found). Initializing empty. Use 'Sync Now' to fetch.")
+    except Exception as e:
+        print(f"CRITICAL ERROR during startup disk load: {e}")
+        traceback.print_exc()
+        app.state.clinic_data = {} # Ensure it's initialized empty on any error
+        print("Error during disk load. Initializing empty. Use 'Sync Now' to fetch.")
+    
+    print(f"LIFESPAN_DEBUG: Before yield, app.state.clinic_data keys: {list(app.state.clinic_data.keys()) if app.state.clinic_data else 'Empty or None'}")
+    print(f"LIFESPAN_DEBUG: Before yield, id(app): {id(app)}, id(app.state): {id(app.state)}")
+    print("Server startup sequence complete.")
+    yield
+    print("DEBUG: Exiting lifespan context manager (after yield).")
+    # Clean up resources if any on shutdown (not needed for this case)
+    print("Shutting down application.") # Existing print
 
 
 def get_router_config() -> dict:
@@ -53,6 +92,7 @@ def import_api_routers() -> APIRouter:
             if isinstance(api_router, APIRouter):
                 routes.include_router(
                     api_router,
+                    prefix=f"/{name}",  # Remove trailing slash from prefix
                     dependencies=(
                         []
                         if is_auth_disabled(router_config, name)
@@ -80,9 +120,31 @@ def get_firebase_config() -> dict | None:
 
 
 def create_app() -> FastAPI:
+    print("DEBUG: create_app() called.")
     """Create the app. This is called by uvicorn with the factory option to construct the app object."""
-    app = FastAPI()
+    app = FastAPI(lifespan=lifespan) # Added lifespan manager
+    print("DEBUG: FastAPI app instance created with lifespan manager.")
     app.include_router(import_api_routers())
+    print("DEBUG: API routers included.")
+
+    # Add CORS middleware
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost:5100",  # Base port
+            "http://localhost:5101",
+            "http://localhost:5102",
+            "http://localhost:5103",
+            "http://localhost:5104",
+            "http://localhost:5174",  # Your current frontend port
+            # Add other common development ports if needed, or the original 5173 if still used
+            # "http://localhost:5173",
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],  # Allows all methods
+        allow_headers=["*"],  # Allows all headers
+    )
+    print("DEBUG: CORS middleware added.")
 
     for route in app.routes:
         if hasattr(route, "methods"):
@@ -103,8 +165,10 @@ def create_app() -> FastAPI:
         }
 
         app.state.auth_config = AuthConfig(**auth_config)
-
+    print("DEBUG: Firebase auth config processed.")
+    print("DEBUG: create_app() finished.")
     return app
 
-
+print("DEBUG: backend/main.py script is being executed/imported (before create_app call).")
 app = create_app()
+print("DEBUG: backend/main.py: app instance created via create_app().")

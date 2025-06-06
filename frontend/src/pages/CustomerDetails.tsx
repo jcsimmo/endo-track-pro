@@ -1,557 +1,561 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useUserGuardContext } from "app";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronLeft, ChevronDown, ChevronRight } from "lucide-react";
-import { Cohort, Serial, ChainData } from "utils/cohort-types";
-import { fetchZohoData } from "utils/zoho-data";
-import { Spinner } from "components/Spinner";
-import { XCircle } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CohortDetailView } from "components/CohortDetailView";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { toast } from "sonner";
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/extensions/shadcn/components/card';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/extensions/shadcn/components/accordion";
+import { Badge } from "@/extensions/shadcn/components/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/extensions/shadcn/components/alert";
+import { Skeleton } from "@/extensions/shadcn/components/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/extensions/shadcn/components/tooltip";
+import brain from "brain"; // This might need to be passed to fetchDetailedCustomerData if not global
+import { ArrowLeft, Info, ChevronDown, ChevronRight } from 'lucide-react';
+import {
+  fetchDetailedCustomerData,
+  transformStep2DataToCustomerPageData, // Though fetchDetailedCustomerData calls this internally
+  CustomerPageData,
+  // Import other interfaces if directly used in this file's rendering, e.g. ChainInfo, CohortDisplayData
+  ChainInfo,
+  CohortDisplayData,
+  OrphanInfo,
+  ScopeDetail
+} from 'utils/customer-data-processing';
 
-interface OrphanChain {
-  lastSerial: Serial;
-  chain: Serial[];
-  finalStatus: string;
-}
+// ScopeStatusBadge component (Plan 4.1.4)
+const ScopeStatusBadge: React.FC<{ status: string }> = ({ status }) => {
+  let variant: "default" | "destructive" | "outline" | "secondary" = "default";
+  let statusText = status;
 
-export default function CustomerDetails() {
-  const navigate = useNavigate();
+  if (status.toLowerCase().includes('in field')) {
+    variant = "default";
+    statusText = "In Field";
+  } else if (status.toLowerCase().includes('returned') && status.toLowerCase().includes('no replacement')) {
+    variant = "destructive";
+    statusText = "Returned (No Replacement)";
+  } else if (status.toLowerCase().includes('returned_replaced')) {
+    variant = "secondary";
+    statusText = "Returned (Replaced)";
+  } else {
+    variant = "outline";
+  }
+
+  return <Badge variant={variant} className="whitespace-nowrap">{statusText}</Badge>;
+};
+
+// Functions fetchDetailedCustomerData (formerly fetchCustomerDataByCustomerName)
+// and transformStep2DataToCustomerPageData are now imported from 'utils/customer-data-processing'
+
+const CustomerDetailsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const { user } = useUserGuardContext();
-  
-  // Get the customer name from URL query params
-  const customerName = searchParams.get('customer');
-  
-  // State for Zoho data
-  const [cohorts, setCohorts] = useState<Cohort[]>([]);
-  const [customerCohorts, setCustomerCohorts] = useState<Cohort[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const customerNameQueryParam = searchParams.get('customer');
+
+  const [customerData, setCustomerData] = useState<CustomerPageData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // State for orphan scopes
-  const [orphanChains, setOrphanChains] = useState<OrphanChain[]>([]);
-  const [selectedOrphanId, setSelectedOrphanId] = useState<string | null>(null);
-  const [targetCohortId, setTargetCohortId] = useState<string>("");
-  const [expandedChains, setExpandedChains] = useState<Record<string, boolean>>({});
-  
-  // Fetch data on component mount
-  useEffect(() => {
-    const loadData = async () => {
-      // Wrap the state updates that might cause suspension in startTransition
-      React.startTransition(() => {
-        fetchZohoData(setIsLoading, setError)
-          .then(cohortsData => {
-            setCohorts(cohortsData);
+  const [expandedChains, setExpandedChains] = useState<Set<string>>(new Set());
 
-            if (customerName) {
-              const filtered = cohortsData.filter(c =>
-                c.customer.toLowerCase() === decodeURIComponent(customerName).toLowerCase());
-              setCustomerCohorts(filtered);
-
-              if (filtered.length > 0) {
-                // setSelectedCohortId(filtered[0].id); // No longer needed
-              }
-
-              processOrphanChains(cohortsData);
-            }
-          })
-          .catch(err => {
-            // Error is already handled in fetchZohoData
-          });
-      });
-    };
-
-    loadData();
-  }, [customerName]);
-  
-  // Process orphan chains from all cohorts
-  const processOrphanChains = (cohortsData: Cohort[]) => {
-    const chains: OrphanChain[] = [];
-    
-    cohortsData.forEach(cohort => {
-      // Skip if no chain data
-      if (!cohort.chainData) return;
-      
-      // Process orphan chains
-      cohort.chainData.orphanChains.forEach(chain => {
-        // Find all serials in this chain
-        const chainSerials = chain.serials
-          .map(serialId => cohort.serials.find(s => s.id === serialId))
-          .filter((s): s is Serial => s !== undefined);
-        
-        // Sort by chain position
-        chainSerials.sort((a, b) => {
-          const posA = a.chainInfo?.chainPosition || 0;
-          const posB = b.chainInfo?.chainPosition || 0;
-          return posA - posB;
-        });
-        
-        // Get the last serial in the chain
-        const lastSerial = chainSerials[chainSerials.length - 1];
-        
-        if (lastSerial) {
-          chains.push({
-            lastSerial,
-            chain: chainSerials,
-            finalStatus: chain.finalStatus
-          });
-        }
-      });
-    });
-    
-    console.log(`Found ${chains.length} orphan chains`);
-    setOrphanChains(chains);
-  };
-  
-  // Toggle chain expansion
-  const toggleChainExpansion = (serialId: string) => {
-    setExpandedChains(prev => ({
-      ...prev,
-      [serialId]: !prev[serialId]
-    }));
-  };
-  
-  // Assign orphan to cohort
-  const assignOrphanToCohort = () => {
-    if (!selectedOrphanId || !targetCohortId) return;
-    
-    // Find the selected orphan chain
-    const selectedChain = orphanChains.find(chain => chain.lastSerial.id === selectedOrphanId);
-    if (!selectedChain) return;
-    
-    // Find the target cohort
-    const targetCohort = customerCohorts.find(c => c.id === targetCohortId);
-    if (!targetCohort) return;
-    
-    // In a real implementation, we would call the backend API to perform the assignment
-    // For now, we'll just show a success message
-    toast.success(`Assigned serial ${selectedOrphanId} to cohort ${targetCohortId}`, {
-      description: `This is a UI demonstration. In the final app, this would update the database.`
-    });
-    
-    // Clear selection
-    setSelectedOrphanId(null);
-    setTargetCohortId("");
-  };
-  
-  // Function to retry data loading
-  const retryLoading = () => {
-    setIsLoading(true);
-    setError(null);
-    
-    const loadData = async () => {
-      try {
-        const cohortsData = await fetchZohoData(setIsLoading, setError);
-        setCohorts(cohortsData);
-      } catch (err) {
-        // Error is already handled in fetchZohoData
+  const toggleChainDetails = (chainId: string) => {
+    setExpandedChains(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(chainId)) {
+        newSet.delete(chainId);
+      } else {
+        newSet.add(chainId);
       }
-    };
-    
-    loadData();
+      return newSet;
+    });
   };
-  
-  // Calculate customer statistics
-  const calculateCustomerStats = () => {
-    if (!customerCohorts.length) return { totalCohorts: 0, activeUnits: 0, totalUnits: 0, usedReplacements: 0, totalReplacements: 0 };
-    
-    return {
-      totalCohorts: customerCohorts.length,
-      activeUnits: customerCohorts.reduce((sum, c) => sum + c.activeUnits, 0),
-      totalUnits: customerCohorts.reduce((sum, c) => sum + c.totalUnits, 0),
-      usedReplacements: customerCohorts.reduce((sum, c) => sum + c.replacementsUsed, 0),
-      totalReplacements: customerCohorts.reduce((sum, c) => sum + c.replacementsTotal, 0),
-    };
-  };
-  
-  const stats = calculateCustomerStats();
-  
-  // Display loading state
-  if (isLoading) {
+
+  useEffect(() => {
+    if (customerNameQueryParam) {
+      const loadData = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const data = await fetchDetailedCustomerData(customerNameQueryParam); // Use imported function
+          setCustomerData(data);
+        } catch (e: any) {
+          setError(e.message || "Failed to fetch customer data.");
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadData();
+    } else {
+      setError("No customer specified in URL.");
+      setLoading(false);
+    }
+  }, [customerNameQueryParam]);
+
+  if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Spinner className="h-8 w-8 mb-4" />
-          <h2 className="text-xl font-medium mb-2">Loading Customer Data</h2>
-          <p className="text-muted-foreground">Please wait while we retrieve the latest information...</p>
-        </div>
+      <div className="container mx-auto p-4 space-y-4">
+        <Skeleton className="h-12 w-1/2" />
+        <Skeleton className="h-8 w-1/4" />
+        <Card>
+          <CardHeader><Skeleton className="h-8 w-3/4" /></CardHeader>
+          <CardContent className="space-y-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+          </CardContent>
+        </Card>
       </div>
     );
   }
-  
-  // Display error state
+
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center max-w-md">
-          <XCircle className="h-12 w-12 text-red-500 mb-4 mx-auto" />
-          <h2 className="text-xl font-medium mb-2">Error Loading Data</h2>
-          <p className="text-muted-foreground mb-4 whitespace-pre-line">{error}</p>
-          <Button 
-            onClick={retryLoading}
-            variant="outline"
-          >
-            Try Again
-          </Button>
-        </div>
-      </div>
-    );
-  }
-  
-  // Customer not found
-  if (!customerName || customerCohorts.length === 0) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center max-w-md">
-          <XCircle className="h-12 w-12 text-amber-500 mb-4 mx-auto" />
-          <h2 className="text-xl font-medium mb-2">Customer Not Found</h2>
-          <p className="text-muted-foreground mb-4">The requested customer could not be found or has no cohorts.</p>
-          <Button
-            onClick={() => React.startTransition(() => navigate('/dashboard'))}
-            variant="outline"
-          >
-            Return to Dashboard
-          </Button>
-        </div>
+      <div className="container mx-auto p-4">
+        <Alert variant="destructive">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       </div>
     );
   }
 
+  if (!customerData) {
+    return (
+      <div className="container mx-auto p-4">
+        <Alert>
+          <AlertTitle>No Data</AlertTitle>
+          <AlertDescription>Customer data could not be loaded for "{customerNameQueryParam}".</AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
+  // Calculate summary counts for display
+  const totalInFieldScopes = customerData.cohorts.reduce((sum, cohort) => sum + cohort.inFieldScopeCount, 0);
+  
+  // Calculate total returned scopes (count individual scopes that were returned, not just chains)
+  const totalReturnedScopes = customerData.cohorts.reduce((sum, cohort) => {
+    return sum + cohort.allChains.reduce((chainSum, chain) => {
+      if (!chain.finalStatus.toLowerCase().includes('in field')) {
+        // Count the number of scopes in the chain (chain.chain.length)
+        return chainSum + (chain.chain?.length || 1);
+      }
+      // For in-field chains, count all returned scopes in the chain except the final one
+      return chainSum + Math.max(0, (chain.chain?.length || 1) - 1);
+    }, 0);
+  }, 0);
+  const totalOrphanedScopesGlobal = customerData.orphanedScopesGlobal.length;
+
+  // New calculations for "Total Endoscopes Under Plan"
+  const activeCohorts = customerData.cohorts.filter(cohort => !(new Date(cohort.endDate) < new Date()));
+  const expiredCohorts = customerData.cohorts.filter(cohort => new Date(cohort.endDate) < new Date());
+
+  const activeInFieldFromCohorts = activeCohorts.reduce((sum, cohort) => sum + cohort.inFieldScopeCount, 0);
+  const expiredInFieldFromCohorts = expiredCohorts.reduce((sum, cohort) => sum + cohort.inFieldScopeCount, 0);
+
+  const inFieldGlobalOrphans = customerData.orphanedScopesGlobal.filter(
+    orphan => orphan.status && orphan.status.toLowerCase().includes('in field')
+  ).length;
+
+  const totalActiveScopesGreen = activeInFieldFromCohorts + inFieldGlobalOrphans;
+  const totalExpiredScopesRed = expiredInFieldFromCohorts;
+
+  // New calculation for "Total Endoscopes in Customer's possession"
+  const totalScopesInPossession = totalActiveScopesGreen + totalOrphanedScopesGlobal + totalExpiredScopesRed;
+
   return (
-    <div className="min-h-screen bg-background">
-      <header className="py-4 px-6 border-b">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-md bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-semibold">EP</span>
+    <div className="container mx-auto p-2 space-y-4">
+      <div className="my-4"> {/* Changed mb-4 to my-4 for consistent vertical spacing */}
+        <Link to="/dashboard" className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 hover:underline"> {/* Changed to="/dashboard" */}
+          <ArrowLeft className="mr-1 h-4 w-4" />
+          Return to Dashboard
+        </Link>
+      </div>
+      {/* Customer Header */}
+      <Card>
+        <CardHeader className="p-4">
+          <CardTitle className="text-xl">{customerData.customerName}</CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 pt-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+            <div>
+              <span className="font-semibold">Total Endoscopes Under Plan:</span>
+              <div className="text-base">
+                <span className="text-green-600">{totalActiveScopesGreen}</span>
+                <span className="text-gray-600"> (Expired: </span>
+                <span className="text-red-600">{totalExpiredScopesRed}</span>
+                <span className="text-gray-600">)</span>
+              </div>
             </div>
-            <h1 className="text-xl font-semibold">EndoTrack Pro</h1>
+            <div>
+              <span className="font-semibold">Total Endoscopes in Customer's possession:</span>
+              <div className="text-base text-blue-600">{totalScopesInPossession}</div>
+              <div className="text-xs text-gray-500 mt-1">
+                <div>Scopes under CSA plan: <span className="text-green-600">{totalActiveScopesGreen}</span></div>
+                <div>Scopes with expired CSA plan: <span className="text-red-600">{totalExpiredScopesRed}</span></div>
+                <div>Scopes never part of CSA plan: <span className="text-orange-600">{totalOrphanedScopesGlobal}</span></div>
+              </div>
+            </div>
+            <div>
+              <span className="font-semibold">Total Returned Scopes:</span>
+              <div className="text-base text-gray-600">{totalReturnedScopes}</div>
+            </div>
+            <div>
+              <span className="font-semibold">Global Orphans:</span>
+              <div className="text-base text-orange-600">{totalOrphanedScopesGlobal}</div>
+            </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              onClick={() => React.startTransition(() => navigate("/dashboard"))}
-            >
-              Dashboard
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => React.startTransition(() => navigate("/login"))}
-            >
-              Log Out
-            </Button>
-          </div>
-        </div>
-      </header>
-      
-      <main className="container mx-auto py-8 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center mb-6">
-            <Button
-              variant="ghost"
-              className="mr-2"
-              onClick={() => React.startTransition(() => navigate('/dashboard'))}
-            >
-              <ChevronLeft className="h-4 w-4 mr-1" />
-              Back to Dashboard
-            </Button>
-          </div>
-          
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold">{customerName}</h1>
-            <p className="text-muted-foreground mt-1">
-              Customer CSA Plans and Scope Management
-            </p>
-          </div>
-          
-          {/* Customer Statistics */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card className="bg-white overflow-hidden border-l-4 border-l-primary shadow-sm">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-gray-600 font-medium">Total CSA Plans</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold text-gray-800">{stats.totalCohorts}</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Active customer service agreements
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white overflow-hidden border-l-4 border-l-green-500 shadow-sm">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-gray-600 font-medium">Units in Field</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold text-gray-800">{stats.activeUnits}</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Out of {stats.totalUnits} total units
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white overflow-hidden border-l-4 border-l-amber-500 shadow-sm">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-gray-600 font-medium">Replacements Used</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold text-gray-800">{stats.usedReplacements}/{stats.totalReplacements}</div>
-                <div className="mt-1">
-                  <Progress 
-                    value={(stats.usedReplacements / Math.max(1, stats.totalReplacements)) * 100} 
-                    className="h-2" 
-                  />
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white overflow-hidden border-l-4 border-l-blue-500 shadow-sm">
-              <CardHeader className="pb-2">
-                <CardDescription className="text-gray-600 font-medium">Remaining Replacements</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-semibold text-gray-800">{stats.totalReplacements - stats.usedReplacements}</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Available across all plans
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <Tabs defaultValue="plans" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="plans">CSA Plans</TabsTrigger>
-              <TabsTrigger value="orphans">Orphan Scope Management</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="plans" className="space-y-4">
-              {/* Cohort List Only */}
-              <Card className="lg:max-w-md"> {/* Adjusted width */}
-                <CardHeader>
-                  <CardTitle>CSA Cohorts</CardTitle>
-                  <CardDescription>Select a cohort to view details</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    {customerCohorts.map(cohort => (
-                      <div 
-                        key={cohort.id}
-                        className={`p-3 rounded-md cursor-pointer transition-colors hover:bg-muted border border-transparent hover:border-primary/50`}
-                        onClick={() => React.startTransition(() => navigate(`/CohortDetails?id=${cohort.id}`))}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <p className="font-medium text-sm">{cohort.id}</p>
-                            <div className="flex items-center mt-1">
-                              <Badge 
-                                variant={cohort.status === 'active' ? 'default' : 
-                                  cohort.status === 'maxed' ? 'destructive' : 'outline'}
-                                className="text-xs"
+        </CardContent>
+      </Card>
+
+      {/* Cohorts Section */}
+      {customerData.cohorts
+        .sort((a, b) => {
+          // Sort active cohorts before expired ones
+          const aExpired = new Date(a.endDate) < new Date();
+          const bExpired = new Date(b.endDate) < new Date();
+          if (aExpired !== bExpired) {
+            return aExpired ? 1 : -1; // Active (not expired) first
+          }
+          // Within the same category, sort by order ID
+          return a.orderId.localeCompare(b.orderId);
+        })
+        .map((cohort, cohortIndex) => {
+        const isExpired = new Date(cohort.endDate) < new Date();
+        const inFieldChains = cohort.allChains.filter(c => c.finalStatus.toLowerCase().includes('in field'));
+        const returnedChains = cohort.allChains.filter(c => !c.finalStatus.toLowerCase().includes('in field'));
+        
+        // Calculate total returned scopes for this cohort
+        const returnedScopesCount = cohort.allChains.reduce((sum, chain) => {
+          if (!chain.finalStatus.toLowerCase().includes('in field')) {
+            // Count all scopes in fully returned chains
+            return sum + (chain.chain?.length || 1);
+          }
+          // For in-field chains, count all returned scopes except the final one
+          return sum + Math.max(0, (chain.chain?.length || 1) - 1);
+        }, 0);
+        
+        // Calculate warning logic for approaching return limit (percentage-based)
+        const totalReplacements = cohort.totalCSASlots;
+        const remainingReturns = totalReplacements - returnedScopesCount;
+        const usagePercentage = totalReplacements > 0 ? (returnedScopesCount / totalReplacements) * 100 : 0;
+        const shouldShowWarning = usagePercentage >= 80 && remainingReturns > 0; // Show warning when 80% or more returns used
+
+        return (
+          <Card key={`${cohort.orderId}-${cohort.sku}-${cohortIndex}`} className={isExpired ? 'border-red-500 border-2' : ''}>
+            <CardHeader className="p-4">
+              <div className="flex justify-between items-start">
+                <CardTitle>Cohort: {cohort.orderId} ({cohort.sku})</CardTitle>
+                {isExpired && <Badge variant="destructive">EXPIRED</Badge>}
+              </div>
+              <div className="text-sm text-muted-foreground grid grid-cols-1 md:grid-cols-3 gap-2">
+                <span>
+                  Returns: {returnedScopesCount}/{totalReplacements}
+                  {shouldShowWarning && (
+                    <span className="ml-2 text-orange-600 font-medium">
+                      ({remainingReturns} more allowed)
+                    </span>
+                  )}
+                </span>
+                <span>Start: {cohort.startDate} | End: {cohort.endDate}</span>
+                <span>Warning: {cohort.warningDate}</span>
+              </div>
+              <div className="flex gap-2 text-sm mt-2">
+                <Badge variant="default" className="bg-green-100 text-green-800">In-Field: {cohort.inFieldScopeCount}</Badge>
+                <Badge variant="outline" className="bg-gray-100 text-gray-800">Returned Scopes: {returnedScopesCount}</Badge>
+                <Badge variant="secondary">CSA Length: {cohort.csaLength}</Badge>
+              </div>
+            </CardHeader>
+            <CardContent className="p-4">
+              <Accordion type="multiple" defaultValue={inFieldChains.length > 0 ? [`in-field-${cohortIndex}`] : []}>
+                {/* In-Field Scopes */}
+                {inFieldChains.length > 0 && (
+                  <AccordionItem value={`in-field-${cohortIndex}`}>
+                    <AccordionTrigger className="text-green-700 font-semibold py-2">
+                      In-Field Scopes ({inFieldChains.length})
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-1">
+                        {inFieldChains.map((scope, scopeIndex) => {
+                          console.log(`🎨 DEBUG: Rendering scope ${scope.chain[0]} - isOrphan: ${scope.isOrphan}`);
+                          const chainId = `infield-${cohort.orderId}-${cohort.sku}-${scopeIndex}`;
+                          const isExpanded = expandedChains.has(chainId);
+                          return (
+                            <div key={chainId}>
+                              <div
+                                className={`flex items-center justify-between p-2 border rounded cursor-pointer hover:bg-gray-50 ${scope.isOrphan ? 'bg-blue-50 border-blue-300' : 'bg-white'}`}
+                                style={scope.isOrphan ? {backgroundColor: '#dbeafe', borderColor: '#93c5fd'} : {}}
+                                onClick={() => toggleChainDetails(chainId)}
                               >
-                                {cohort.status}
-                              </Badge>
+                                <div className="flex items-center flex-grow">
+                                  {isExpanded ? <ChevronDown className="h-4 w-4 mr-2" /> : <ChevronRight className="h-4 w-4 mr-2" />}
+                                  <span className="font-mono text-sm">
+                                    {scope.chain.join(' → ')} ({scope.displaySku})
+                                  </span>
+                                  {scope.isOrphan && (
+                                    <TooltipProvider>
+                                      <Tooltip delayDuration={300}>
+                                        <TooltipTrigger asChild>
+                                          <Info className="h-4 w-4 ml-2 text-blue-600 cursor-pointer" />
+                                        </TooltipTrigger>
+                                        <TooltipContent className="w-80">
+                                          <p className="font-semibold">Assigned Orphan Scope</p>
+                                          <p className="text-xs text-muted-foreground">
+                                            This scope chain was not part of the original CSA order but has been programmatically linked to this cohort.
+                                          </p>
+                                          {scope.assignmentReason && (
+                                            <p className="text-xs mt-1">
+                                              <span className="font-medium">Assignment Reason:</span> {scope.assignmentReason}
+                                            </p>
+                                          )}
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    </TooltipProvider>
+                                  )}
+                                </div>
+                                <div className="ml-2"> {/* Ensure badge doesn't get squished */}
+                                  <ScopeStatusBadge status={scope.finalStatus} />
+                                </div>
+                              </div>
+                              {isExpanded && (
+                                <div className="p-2 mt-1 border-l-2 border-gray-200 ml-3 bg-gray-25">
+                                  <p className="text-xs text-gray-700">Detailed scope information for: {scope.chain.join(' → ')}</p>
+                                  {/* Placeholder for detailed scope rendering */}
+                                  {scope.detailedScopes && scope.detailedScopes.length > 0 ? (
+                                    scope.detailedScopes.map((detail, detailIndex) => (
+                                      <div key={detailIndex} className="p-2 my-2 border rounded bg-white text-xs">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                          <p><strong>Serial:</strong> {detail.serial}</p>
+                                          <p><strong>Status:</strong> {detail.status}</p>
+                                          {detail.salesOrder && <p><strong>Sales Order:</strong> {detail.salesOrder}</p>}
+                                          {detail.salesOrderDate && <p><strong>Order Date:</strong> {detail.salesOrderDate}</p>}
+                                          {detail.packageNumber && <p><strong>Package:</strong> {detail.packageNumber}</p>}
+                                          {detail.shipmentNumber && <p><strong>Shipment:</strong> {detail.shipmentNumber}</p>}
+                                          {detail.shipmentDate && <p><strong>Shipped:</strong> {detail.shipmentDate}</p>}
+                                          {detail.deliveryStatus && <p><strong>Delivery Status:</strong> {detail.deliveryStatus}</p>}
+                                          {detail.carrier && <p><strong>Carrier:</strong> {detail.carrier}</p>}
+                                          {detail.rmaNumber && <p><strong>RMA:</strong> {detail.rmaNumber}</p>}
+                                          {detail.rmaDate && <p><strong>RMA Date:</strong> {detail.rmaDate}</p>}
+                                        </div>
+                                        {detail.productName && (
+                                          <p className="mt-1 text-gray-600"><strong>Product:</strong> {detail.productName}</p>
+                                        )}
+                                        {detail.itemSku && (
+                                          <p className="mt-1 text-gray-600"><strong>SKU:</strong> {detail.itemSku}</p>
+                                        )}
+                                        {detail.itemCustomerName && (
+                                          <p className="mt-1 text-gray-600"><strong>Customer (SO):</strong> {detail.itemCustomerName}</p>
+                                        )}
+                                        {detail.trackingNumber && (
+                                          <div className="mt-1">
+                                            <strong>Tracking:</strong>
+                                            {detail.trackingUrl ? (
+                                              <a
+                                                href={detail.trackingUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="ml-1 text-blue-600 hover:text-blue-800 underline"
+                                              >
+                                                {detail.trackingNumber}
+                                              </a>
+                                            ) : (
+                                              <span className="ml-1">{detail.trackingNumber}</span>
+                                            )}
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))
+                                  ) : (
+                                    <p className="text-xs text-gray-500 italic">No detailed scope data available for this chain yet.</p>
+                                  )}
+                                  {scope.handoffs.length > 0 && (
+                                    <div className="text-xs text-muted-foreground mt-1">
+                                      <strong>Handoffs:</strong>
+                                      {scope.handoffs.map((handoff, i) => (
+                                        <div key={i}>• {handoff}</div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
                             </div>
+                          );
+                        })}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+
+                {/* Returned Scopes */}
+                {returnedChains.length > 0 && (
+                  <AccordionItem value={`returned-${cohortIndex}`}>
+                    <AccordionTrigger className="text-gray-600 font-semibold py-2 text-sm">
+                      Returned Scope Chains ({returnedChains.length})
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-1 opacity-75"> {/* Greyed out effect */}
+                        {returnedChains.map((scope, scopeIndex) => {
+                          console.log(`🎨 DEBUG: Rendering returned scope ${scope.chain[0]} - isOrphan: ${scope.isOrphan}`);
+                          const chainId = `returned-${cohort.orderId}-${cohort.sku}-${scopeIndex}`;
+                          const isExpanded = expandedChains.has(chainId);
+                          return (
+                            <div key={chainId}>
+                              <div
+                                className={`flex items-center justify-between p-1.5 border rounded text-sm cursor-pointer hover:bg-gray-100 ${scope.isOrphan ? 'bg-blue-50 border-blue-200' : 'bg-gray-50'}`}
+                                style={scope.isOrphan ? {backgroundColor: '#dbeafe', borderColor: '#93c5fd'} : {}}
+                                onClick={() => toggleChainDetails(chainId)}
+                              >
+                                <div className="flex items-center flex-grow">
+                                  {isExpanded ? <ChevronDown className="h-3 w-3 mr-1.5" /> : <ChevronRight className="h-3 w-3 mr-1.5" />}
+                                  <span className="font-mono text-xs"> {/* Smaller text */}
+                                    {scope.chain.join(' → ')} ({scope.displaySku})
+                                  </span>
+                                  {scope.isOrphan && (
+                                    <TooltipProvider>
+                                      <Tooltip delayDuration={300}>
+                                        <TooltipTrigger asChild>
+                                          <Info className="h-3 w-3 ml-1.5 text-blue-500 cursor-pointer" />
+                                        </TooltipTrigger>
+                                        <TooltipContent className="w-80">
+                                          <p className="font-semibold">Assigned Orphan Scope</p>
+                                          <p className="text-xs text-muted-foreground">
+                                            This scope chain was not part of the original CSA order but has been programmatically linked to this cohort.
+                                          </p>
+                                          {scope.assignmentReason && (
+                                            <p className="text-xs mt-1">
+                                              <span className="font-medium">Assignment Reason:</span> {scope.assignmentReason}
+                                            </p>
+                                          )}
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    </TooltipProvider>
+                                  )}
+                                </div>
+                                <div className="ml-2"> {/* Ensure badge doesn't get squished */}
+                                 <ScopeStatusBadge status={scope.finalStatus} />
+                                </div>
+                              </div>
+                              {isExpanded && (
+                                <div className="p-1.5 mt-1 border-l-2 border-gray-200 ml-2.5 bg-gray-25 text-xs">
+                                  <p className="text-xs text-gray-600">Detailed scope information for: {scope.chain.join(' → ')}</p>
+                                  {/* Placeholder for detailed scope rendering */}
+                                  {scope.detailedScopes && scope.detailedScopes.length > 0 ? (
+                                    scope.detailedScopes.map((detail, detailIndex) => (
+                                      <div key={detailIndex} className="p-2 my-1 border rounded bg-white text-xs">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+                                          <p><strong>Serial:</strong> {detail.serial}</p>
+                                          <p><strong>Status:</strong> {detail.status}</p>
+                                          {detail.salesOrder && <p><strong>Sales Order:</strong> {detail.salesOrder}</p>}
+                                          {detail.salesOrderDate && <p><strong>Order Date:</strong> {detail.salesOrderDate}</p>}
+                                          {detail.packageNumber && <p><strong>Package:</strong> {detail.packageNumber}</p>}
+                                          {detail.shipmentNumber && <p><strong>Shipment:</strong> {detail.shipmentNumber}</p>}
+                                          {detail.shipmentDate && <p><strong>Shipped:</strong> {detail.shipmentDate}</p>}
+                                          {detail.deliveryStatus && <p><strong>Delivery Status:</strong> {detail.deliveryStatus}</p>}
+                                          {detail.carrier && <p><strong>Carrier:</strong> {detail.carrier}</p>}
+                                          {detail.rmaNumber && <p><strong>RMA:</strong> {detail.rmaNumber}</p>}
+                                          {detail.rmaDate && <p><strong>RMA Date:</strong> {detail.rmaDate}</p>}
+                                        </div>
+                                        {detail.productName && (
+                                          <p className="mt-1 text-gray-600"><strong>Product:</strong> {detail.productName}</p>
+                                        )}
+                                        {detail.itemSku && (
+                                          <p className="mt-1 text-gray-600"><strong>SKU:</strong> {detail.itemSku}</p>
+                                        )}
+                                        {detail.itemCustomerName && (
+                                          <p className="mt-1 text-gray-600"><strong>Customer (SO):</strong> {detail.itemCustomerName}</p>
+                                        )}
+                                        {detail.trackingNumber && (
+                                          <div className="mt-1">
+                                            <strong>Tracking:</strong>
+                                            {detail.trackingUrl ? (
+                                              <a
+                                                href={detail.trackingUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="ml-1 text-blue-600 hover:text-blue-800 underline"
+                                              >
+                                                {detail.trackingNumber}
+                                              </a>
+                                            ) : (
+                                              <span className="ml-1">{detail.trackingNumber}</span>
+                                            )}
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))
+                                  ) : (
+                                    <p className="text-xs text-gray-400 italic">No detailed scope data available for this chain yet.</p>
+                                  )}
+                                  {scope.handoffs.length > 0 && (
+                                    <div className="text-xs text-muted-foreground mt-0.5">
+                                      <strong>Handoffs:</strong>
+                                      {scope.handoffs.map((handoff, i) => (
+                                        <div key={i}>• {handoff}</div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
+              </Accordion>
+            </CardContent>
+          </Card>
+        );
+      })}
+
+      {/* Orphaned Scopes Section - For truly unassigned orphans */}
+      {customerData.orphanedScopesGlobal.length > 0 && (
+        <Card>
+          <CardHeader className="p-4">
+            <CardTitle>Unassigned Orphaned Scopes ({customerData.orphanedScopesGlobal.length})</CardTitle>
+            <p className="text-xs text-muted-foreground">These scopes could not be automatically assigned to a CSA cohort due to capacity constraints or other reasons.</p>
+          </CardHeader>
+          <CardContent className="p-4">
+            <Accordion type="single" collapsible defaultValue="global-orphans">
+              <AccordionItem value="global-orphans">
+                <AccordionTrigger className="text-orange-700 py-2">
+                  View Unassigned Orphaned Scopes
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {customerData.orphanedScopesGlobal.map((orphan, orphanIndex) => (
+                      <div key={`global-orphan-${orphanIndex}-${orphan.serial}`} className="flex items-center justify-between p-3 border rounded bg-orange-50 border-orange-200">
+                        <div className="flex-grow">
+                          <div className="font-mono text-sm font-semibold">
+                            {orphan.chain ? orphan.chain.join(' → ') : orphan.serial} ({orphan.sku})
                           </div>
+                           {orphan.initialShipDate && (
+                            <div className="text-xs text-muted-foreground mt-1">
+                              Shipped: {orphan.initialShipDate}
+                            </div>
+                          )}
+                          {orphan.handoffs && orphan.handoffs.length > 0 && (
+                                <div className="text-xs text-muted-foreground mt-1">
+                                  {orphan.handoffs.map((handoff, i) => (
+                                    <div key={`go-h-${i}`}>• {handoff}</div>
+                                  ))}
+                                </div>
+                          )}
+                          {orphan.assignmentReason && (
+                            <div className="text-xs text-orange-700 mt-2 p-2 bg-orange-100 rounded">
+                              <span className="font-medium">Assignment Issue:</span> {orphan.assignmentReason}
+                            </div>
+                          )}
                         </div>
-                        <div className="mt-2">
-                          <div className="flex justify-between text-xs mb-1">
-                            <span className="text-muted-foreground">Replacements</span>
-                            <span>{cohort.replacementsUsed}/{cohort.replacementsTotal}</span>
-                          </div>
-                          <Progress value={(cohort.replacementsUsed / cohort.replacementsTotal) * 100} className="h-1" />
+                        <div className="ml-3">
+                          <ScopeStatusBadge status={orphan.status} />
                         </div>
                       </div>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="orphans">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Orphan Scopes List - Only showing last scope in each chain */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Orphaned Scope Chains</CardTitle>
-                    <CardDescription>
-                      Scopes without a proper replacement chain
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {orphanChains.length > 0 ? (
-                      <div className="space-y-2 max-h-[500px] overflow-y-auto">
-                        {orphanChains.map(chain => (
-                          <Collapsible 
-                            key={chain.lastSerial.id}
-                            open={expandedChains[chain.lastSerial.id]}
-                            className={`p-3 rounded-md transition-colors border 
-                              ${selectedOrphanId === chain.lastSerial.id ? 'bg-primary/10 border-primary' : 'hover:bg-muted'}`}
-                          >
-                            <div className="flex justify-between items-start">
-                              <div 
-                                className="flex-1 cursor-pointer"
-                                onClick={() => setSelectedOrphanId(chain.lastSerial.id)}
-                              >
-                                <p className="font-mono text-sm mb-1">{chain.lastSerial.id}</p>
-                                <div className="flex justify-between items-center">
-                                  <Badge variant="outline" className="text-xs">{chain.lastSerial.model}</Badge>
-                                  <Badge variant={chain.finalStatus.includes('Field') ? 'default' : 'secondary'} className="text-xs">
-                                    {chain.finalStatus}
-                                  </Badge>
-                                </div>
-                              </div>
-                              
-                              {chain.chain.length > 1 && (
-                                <CollapsibleTrigger
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleChainExpansion(chain.lastSerial.id);
-                                  }}
-                                  className="ml-2 p-1 hover:bg-muted rounded-full"
-                                >
-                                  {expandedChains[chain.lastSerial.id] ? 
-                                    <ChevronDown className="h-4 w-4" /> : 
-                                    <ChevronRight className="h-4 w-4" />
-                                  }
-                                </CollapsibleTrigger>
-                              )}
-                            </div>
-                            
-                            {chain.chain.length > 1 && (
-                              <CollapsibleContent className="mt-3">
-                                <div className="text-xs text-muted-foreground mb-2">Full replacement chain:</div>
-                                <div className="space-y-2 pl-2 border-l-2 border-muted">
-                                  {chain.chain.map((serial, index) => (
-                                    <div key={serial.id} className="flex items-start">
-                                      <div className="flex-1">
-                                        <p className="font-mono">{serial.id}</p>
-                                        <div className="flex items-center mt-1">
-                                          <Badge variant="outline" className="text-xs mr-2">
-                                            {index === chain.chain.length - 1 ? 'Current' : 'Replaced'}
-                                          </Badge>
-                                          {serial.replacementDate && (
-                                            <span className="text-xs text-muted-foreground">
-                                              {index < chain.chain.length - 1 ? 'Returned' : 'Received'} on {new Date(serial.replacementDate).toLocaleDateString()}
-                                            </span>
-                                          )}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
-                              </CollapsibleContent>
-                            )}
-                          </Collapsible>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="text-center p-6 bg-muted/20 rounded-md border">
-                        <p className="text-muted-foreground">No orphaned scopes found</p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-                
-                {/* Orphan Assignment */}
-                <Card className="lg:col-span-2">
-                  <CardHeader>
-                    <CardTitle>Assign to CSA Plan</CardTitle>
-                    <CardDescription>
-                      Add an orphaned scope chain to an existing CSA plan for this customer
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {selectedOrphanId ? (
-                      <div className="space-y-4">
-                        <div className="p-4 bg-muted/20 rounded-md border">
-                          <h3 className="font-medium mb-2">Selected Scope Chain</h3>
-                          
-                          {/* Show selected chain details */}
-                          {(() => {
-                            const selectedChain = orphanChains.find(chain => chain.lastSerial.id === selectedOrphanId);
-                            if (!selectedChain) return null;
-                            
-                            return (
-                              <div className="space-y-3">
-                                <div className="grid grid-cols-2 gap-2 text-sm">
-                                  <div className="text-muted-foreground">Final Serial:</div>
-                                  <div className="font-mono">{selectedChain.lastSerial.id}</div>
-                                  
-                                  <div className="text-muted-foreground">Model:</div>
-                                  <div>{selectedChain.lastSerial.model}</div>
-                                  
-                                  <div className="text-muted-foreground">Status:</div>
-                                  <div>{selectedChain.finalStatus}</div>
-                                  
-                                  <div className="text-muted-foreground">Chain Length:</div>
-                                  <div>{selectedChain.chain.length} unit{selectedChain.chain.length !== 1 ? 's' : ''}</div>
-                                </div>
-                                
-                                {selectedChain.chain.length > 1 && (
-                                  <div className="mt-2 pt-2 border-t">
-                                    <p className="text-xs text-muted-foreground mb-1">This chain includes:</p>
-                                    <div className="text-xs font-mono pl-2 border-l-2 border-muted">
-                                      {selectedChain.chain.map(serial => (
-                                        <div key={serial.id} className="mb-1">{serial.id}</div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })()}
-                        </div>
-                        
-                        <div className="space-y-3">
-                          <h3 className="font-medium">Target CSA Plan</h3>
-                          <Select
-                            value={targetCohortId}
-                            onValueChange={setTargetCohortId}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select a CSA plan" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {customerCohorts
-                                .filter(c => c.status === 'active')
-                                .map(cohort => (
-                                  <SelectItem key={cohort.id} value={cohort.id}>
-                                    {cohort.id} ({cohort.activeUnits}/{cohort.totalUnits} units)
-                                  </SelectItem>
-                                ))}
-                            </SelectContent>
-                          </Select>
-                          
-                          <Button 
-                            className="w-full mt-4" 
-                            disabled={!targetCohortId}
-                            onClick={assignOrphanToCohort}
-                          >
-                            Assign to Plan
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-center p-12 bg-muted/20 rounded-md border border-dashed">
-                        <p className="text-muted-foreground mb-4">Select an orphaned scope from the list to assign it to a CSA plan</p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </main>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
-}
+};
+
+export default CustomerDetailsPage;

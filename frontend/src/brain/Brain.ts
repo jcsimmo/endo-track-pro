@@ -181,4 +181,31 @@ export class Brain<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
       method: "GET",
       ...params,
     });
+
+  /**
+   * @description Get Step2 analysis data directly from generated JSON files
+   * @request GET:/routes/clinic-data/step2-analysis/{customer_name}
+   */
+  get_step2_analysis = (
+    customerName: string,
+    params: RequestParams = {}
+  ) =>
+    this.request<any, any>({
+      path: `/routes/clinic_data/step2-analysis/${customerName}`,
+      method: "GET",
+      ...params,
+    });
+}
+
+// Add missing interface definitions that are referenced but not defined
+interface DownloadAggregatedParams {
+  jsonKey: string;
+}
+
+interface DownloadAggregatedData {
+  [key: string]: any;
+}
+
+interface DownloadAggregatedError {
+  detail?: string;
 }

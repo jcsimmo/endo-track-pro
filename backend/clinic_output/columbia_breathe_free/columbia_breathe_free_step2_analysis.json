@@ -1,0 +1,383 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/columbia_breathe_free/columbia_breathe_free_step1_data.json",
+        "customer_name_or_group": "Group (3565249000001746001,3565249000005956001)",
+        "contact_ids_processed": [
+            "3565249000001746001",
+            "3565249000005956001"
+        ],
+        "sales_order_count": 8,
+        "sales_return_count": 7,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00074",
+                "csaLength": "2 year",
+                "startDate": "2023-06-24",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-06-24",
+                "warningDate": "2025-04-25",
+                "remainingReplacements": 20,
+                "totalReplacements": 24,
+                "initialScopeCount": 6,
+                "currentValidatedInFieldCount": 5,
+                "available_slots_pre_orphan_assignment": 1
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0597",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0863",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0860",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0860",
+                        "handoffs": [
+                            "Returned 380.0597 on 2023-12-11, replaced by 380.0863 shipped on 2023-12-11",
+                            "Returned 380.0863 on 2024-03-26, replaced by 380.0860 shipped on 2024-03-28"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0598",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0598",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0599",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0599",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0879",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0919",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0919",
+                        "handoffs": [
+                            "Returned 380.0879 on 2024-02-23, replaced by 380.0919 shipped on 2024-02-23"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0925",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0937",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0937",
+                        "handoffs": [
+                            "Returned 380.0925 on 2023-10-20, replaced by 380.0937 shipped on 2023-10-20"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0928",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0928",
+                        "handoffs": []
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [
+        {
+            "chain": [
+                {
+                    "serial": "380.1892",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.1892",
+            "starter_serial": "380.1892",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00074",
+            "assignment_reason": "Initial ship date 2025-03-24 is on or after cohort SO-00074 start date 2023-06-24. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        }
+    ],
+    "status_summary": {
+        "total_shipped_unique": 11,
+        "total_returned_plausible_unique": 4,
+        "serials_involved_in_validated_chains": 10,
+        "serials_involved_in_any_chain_analysis": 11,
+        "identified_orphan_serials": 5,
+        "suspected_in_field": {
+            "count": 7,
+            "serial_numbers": [
+                "380.0598",
+                "380.0599",
+                "380.0860",
+                "380.0919",
+                "380.0928",
+                "380.0937",
+                "380.1892"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "SMNK217GWD18042": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00259",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2024-05-10",
+            "packageNumber": "PKG-00402",
+            "shipmentDate": "2024-05-10"
+        },
+        "380.0860": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00230",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2024-03-26",
+            "packageNumber": "PKG-00373",
+            "shipmentDate": "2024-03-26"
+        },
+        "380.1892": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00230",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2024-03-26",
+            "packageNumber": "PKG-00588",
+            "shipmentDate": "2025-03-24"
+        },
+        "380.0919": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00205",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2024-02-23",
+            "packageNumber": "PKG-00344",
+            "shipmentDate": "2024-02-23"
+        },
+        "380.0863": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00146",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-12-11",
+            "packageNumber": "PKG-00256",
+            "shipmentDate": "2023-12-11"
+        },
+        "380.0937": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00122",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-10-20",
+            "packageNumber": "PKG-00224",
+            "shipmentDate": "2023-10-20"
+        },
+        "380.0928": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "380.0879": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "380.0597": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "380.0598": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "380.0599": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "380.0925": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "360.0257": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 30 deg",
+            "itemSku": "P313N30",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "380.0683": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm, 45 deg reverse post",
+            "itemSku": "P312R45",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00161",
+            "shipmentDate": "2023-06-24"
+        },
+        "SMNK217GWE22034": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00163",
+            "shipmentDate": "2023-06-24"
+        },
+        "SMNK217GWE22041": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00163",
+            "shipmentDate": "2023-06-24"
+        },
+        "SMNK217GWE22043": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00163",
+            "shipmentDate": "2023-06-24"
+        },
+        "SMNK217GWE22036": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00164",
+            "shipmentDate": "2023-06-24"
+        },
+        "SMNK217GWE22040": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00074",
+            "soCustomerName": "Columbia Breathe Free Sinus and Allergy",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00164",
+            "shipmentDate": "2023-06-24"
+        }
+    },
+    "speculative_orphan_analysis_by_cohort": {
+        "SO-00074": {
+            "P313N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "380.1892",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.1892",
+                    "starter_serial": "380.1892",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00074",
+                    "assignment_reason": "Initial ship date 2025-03-24 is on or after cohort SO-00074 start date 2023-06-24. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                }
+            ]
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 0,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [],
+        "violation_count": 0,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 1.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}

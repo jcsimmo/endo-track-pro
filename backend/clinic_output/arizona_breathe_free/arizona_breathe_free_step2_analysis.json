@@ -1,0 +1,487 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/arizona_breathe_free/arizona_breathe_free_step1_data.json",
+        "customer_name_or_group": "Group (3565249000003554329,3565249000007665001,3565249000008197001,3565249000011800001)",
+        "contact_ids_processed": [
+            "3565249000003554329",
+            "3565249000007665001",
+            "3565249000008197001",
+            "3565249000011800001"
+        ],
+        "sales_order_count": 7,
+        "sales_return_count": 3,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00352",
+                "csaLength": "1 year",
+                "startDate": "2024-10-25",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-10-25",
+                "warningDate": "2025-08-26",
+                "remainingReplacements": 22,
+                "totalReplacements": 24,
+                "initialScopeCount": 6,
+                "currentValidatedInFieldCount": 6,
+                "available_slots_pre_orphan_assignment": 0
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3334",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3334",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3338",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3338",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3339",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3339",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3340",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3340",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3344",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2899",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.2899",
+                        "handoffs": [
+                            "Returned 380.3344 on 2025-04-07, replaced by 380.2899 shipped on 2025-04-07"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3347",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2654",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.2654",
+                        "handoffs": [
+                            "Returned 380.3347 on 2025-03-12, replaced by 380.2654 shipped on 2025-03-17"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "cohort_summary": {
+                "orderId": "SO-00448",
+                "csaLength": "1 year",
+                "startDate": "2025-04-14",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2026-04-14",
+                "warningDate": "2026-02-13",
+                "remainingReplacements": 12,
+                "totalReplacements": 12,
+                "initialScopeCount": 3,
+                "currentValidatedInFieldCount": 3,
+                "available_slots_pre_orphan_assignment": 0
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.2537",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.2537",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.2547",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.2547",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.2566",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.2566",
+                        "handoffs": []
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [],
+    "status_summary": {
+        "total_shipped_unique": 11,
+        "total_returned_plausible_unique": 2,
+        "serials_involved_in_validated_chains": 11,
+        "serials_involved_in_any_chain_analysis": 11,
+        "identified_orphan_serials": 2,
+        "suspected_in_field": {
+            "count": 9,
+            "serial_numbers": [
+                "380.2654",
+                "380.2899",
+                "380.3334",
+                "380.3338",
+                "380.3339",
+                "380.3340",
+                "390.2537",
+                "390.2547",
+                "390.2566"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "SMNK218GXK12505": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00448",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00598",
+            "shipmentDate": "2025-04-14"
+        },
+        "SMNK218GXK12511": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00448",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00598",
+            "shipmentDate": "2025-04-14"
+        },
+        "SMNK218GXK12520": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00448",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00598",
+            "shipmentDate": "2025-04-14"
+        },
+        "390.2566": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00448",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00598",
+            "shipmentDate": "2025-04-14"
+        },
+        "390.2537": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00448",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00598",
+            "shipmentDate": "2025-04-14"
+        },
+        "390.2547": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00448",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00598",
+            "shipmentDate": "2025-04-14"
+        },
+        "SMNK227HXJ21505": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00446",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00599",
+            "shipmentDate": "2025-04-14"
+        },
+        "380.2899": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00440",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-04-07",
+            "packageNumber": "PKG-00592",
+            "shipmentDate": "2025-04-07"
+        },
+        "380.2654": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00429",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2025-03-12",
+            "packageNumber": "PKG-00582",
+            "shipmentDate": "2025-03-12"
+        },
+        "390.1090": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 120mm, 45 deg reverse post",
+            "itemSku": "P312R45",
+            "salesOrderNumber": "SO-00358",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-11-05",
+            "packageNumber": "PKG-00509",
+            "shipmentDate": "2024-11-06"
+        },
+        "380.3340": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.3334": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.3344": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.3347": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.3339": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.3338": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.0980": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 30 deg",
+            "itemSku": "P313N30",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "380.0991": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 30 deg",
+            "itemSku": "P313N30",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00494",
+            "shipmentDate": "2024-10-21"
+        },
+        "SMNK217GWC22065": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00495",
+            "shipmentDate": "2024-10-21"
+        },
+        "SMNK217GWC22079": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00495",
+            "shipmentDate": "2024-10-21"
+        },
+        "SMNK217GWE22047": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00495",
+            "shipmentDate": "2024-10-21"
+        },
+        "SMNK217GWD18043": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00496",
+            "shipmentDate": "2024-10-21"
+        },
+        "SMNK218GXG25515": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00352",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-10-21",
+            "packageNumber": "PKG-00500",
+            "shipmentDate": "2024-10-24"
+        },
+        "SMNK218GXJ21512": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        },
+        "SMNK218GXJ21511": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        },
+        "SMNK218GXJ21509": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        },
+        "SMNK218GXJ21515": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        },
+        "SMNK217GWD18040": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        },
+        "SMNK217GWC22075": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        },
+        "SMNK218GWD23048": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00342",
+            "soCustomerName": "Arizona Breathe Free Sinus Allergy Centers",
+            "salesOrderDate": "2024-09-30",
+            "packageNumber": "PKG-00518",
+            "shipmentDate": "2024-12-05"
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 0,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [],
+        "violation_count": 0,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 1.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}

@@ -12,7 +12,11 @@ import sys
 router = APIRouter()
 
 # --- Configuration Constants (moved outside function) ---
-TARGET_ENDOSCOPE_SKU = 'P313N00'
+# Target SKUs for filtering - support multiple endoscope types
+TARGET_ENDOSCOPE_SKUS = ['P313N00', 'P417N00']
+ENDOSCOPE_SKUS = set(TARGET_ENDOSCOPE_SKUS) # Use a set for efficient lookup
+# Keep backward compatibility
+TARGET_ENDOSCOPE_SKU = TARGET_ENDOSCOPE_SKUS[0] if TARGET_ENDOSCOPE_SKUS else None
 SPECULATIVE_REPLACEMENT_WINDOW_DAYS = 30 # Days to look forward for an orphan replacement
 DEFAULT_RETURN_PRICE = 1200.0 # Used for savings calculation
 # Keywords to identify CSA orders/items
@@ -407,7 +411,7 @@ def transform_serial_history_to_expected_format(serial_history_dict: dict) -> di
 class ProcessRequest(BaseModel):
     data_key: str # Key for the raw data in db.storage.json
 
-@router.post("/process-sales-data", tags=["DataProcessing"], summary="Process raw sales and returns data from Zoho")
+@router.post("/process-sales-data", tags=["DataProcessing"], summary="Process raw sales and returns data from Zoho") # Add leading slash back
 def process_sales_data_endpoint(request: ProcessRequest) -> dict:
     """
     Endpoint to trigger the processing of sales data.
@@ -506,7 +510,7 @@ def process_sales_data_logic(raw_data: dict) -> dict:
                 line_items_details.append(item)
                 serial = item.get('serial_number')
                 item_sku = item.get('sku', '')
-                if serial and item_sku == TARGET_ENDOSCOPE_SKU:
+                if serial and item_sku in ENDOSCOPE_SKUS:
                     serials_in_package.add(serial)
             custom_fields = package.get('custom_fields', [])
             if not serials_in_package and custom_fields:
@@ -638,7 +642,7 @@ def process_sales_data_logic(raw_data: dict) -> dict:
             pkg_dt_item = parse_date_flexible(pkg_date_str_item)
 
             for dline_item in pkg_item.get('detailed_line_items', []):
-                 if dline_item.get('sku') == TARGET_ENDOSCOPE_SKU:
+                 if dline_item.get('sku') in ENDOSCOPE_SKUS:
                       found_target_sku_for_this_csa_so = True
                       serials_item = dline_item.get('serial_numbers', []) # User script: serials
                       proc_sns_item = []
@@ -666,7 +670,7 @@ def process_sales_data_logic(raw_data: dict) -> dict:
                                   # So, if it's not in shipmentInstanceMap, it means this specific serial for this SO/PKG wasn't recorded as a TARGET_ENDOSCOPE_SKU shipment.
 
         if not found_target_sku_for_this_csa_so:
-            print(f"DEBUG: SO {so_num} - CSA order, but no target SKU ({TARGET_ENDOSCOPE_SKU}) found in its packages. Skipping cohort creation.")
+            print(f"DEBUG: SO {so_num} - CSA order, but no target SKUs ({', '.join(TARGET_ENDOSCOPE_SKUS)}) found in its packages. Skipping cohort creation.")
             continue
 
         start_dt_obj = min(current_ship_dts) if current_ship_dts else parse_date_flexible(so.get('date'))
@@ -734,7 +738,7 @@ def process_sales_data_logic(raw_data: dict) -> dict:
         so_number_for_price = so_data_for_price.get('salesorder_number')
         if so_number_for_price in actual_csa_order_ids_with_scopes_for_price:
             for item_for_price in so_data_for_price.get('line_items', []):
-                if isinstance(item_for_price, dict) and item_for_price.get('sku') == TARGET_ENDOSCOPE_SKU:
+                if isinstance(item_for_price, dict) and item_for_price.get('sku') in ENDOSCOPE_SKUS:
                     try:
                         rate = float(item_for_price.get('rate', 0.0))
                         quantity = float(item_for_price.get('quantity', 0.0))
@@ -746,7 +750,7 @@ def process_sales_data_logic(raw_data: dict) -> dict:
                         total_csa_item_quantity += quantity
 
     average_csa_item_price = (total_csa_item_cost / total_csa_item_quantity) if total_csa_item_quantity > 0 else 0.0
-    print(f"User Script Logic: Calculated average price for non-free '{TARGET_ENDOSCOPE_SKU}' items in CSA orders: ${average_csa_item_price:,.2f}")
+    print(f"User Script Logic: Calculated average price for non-free '{', '.join(TARGET_ENDOSCOPE_SKUS)}' items in CSA orders: ${average_csa_item_price:,.2f}")
 
     # --- User's Script Part 3: Process RMAs and Link Replacements ---
     print("Step 6: Processing RMAs and Linking Replacements based on new logic...")

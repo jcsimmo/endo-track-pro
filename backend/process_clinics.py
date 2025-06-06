@@ -86,57 +86,157 @@ def sanitize_filename(name):
     name = re.sub(r'[^\w\-]+', '', name) # Remove non-alphanumeric characters (except underscore and hyphen)
     return name
 
-def main():
-    """Orchestrates the processing for all defined clinic groups."""
-    print("Starting clinic data processing...")
+def load_data_from_disk():
+    """Attempts to load aggregated clinic data from existing _step2_analysis.json files."""
+    print("Attempting to load aggregated clinic data from disk...")
+    all_clinics_csa_data = {}
+    all_files_found = True
+
+    for clinic_name in CLINIC_GROUPS.keys():
+        sanitized_name = sanitize_filename(clinic_name)
+        clinic_output_dir = os.path.join(BASE_OUTPUT_DIR, sanitized_name)
+        step1_json_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step1_data.json")
+        step2_json_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step2_analysis.json")
+
+        clinic_data_loaded_for_group = False
+        if os.path.exists(step2_json_path):
+            try:
+                with open(step2_json_path, 'r') as f:
+                    clinic_csa_data = json.load(f)
+                
+                # Also load Step 1 data for CSA quantity extraction
+                step1_data = None
+                if os.path.exists(step1_json_path):
+                    try:
+                        with open(step1_json_path, 'r') as f1:
+                            step1_data = json.load(f1)
+                    except Exception as e:
+                        print(f"WARNING: Could not load Step 1 data for {clinic_name}: {e}", file=sys.stderr)
+                
+                # Combine Step 1 and Step 2 data
+                combined_data = {
+                    **clinic_csa_data,
+                    'step1_data': step1_data
+                }
+                all_clinics_csa_data[clinic_name] = combined_data
+                print(f"Successfully loaded existing {step2_json_path} from disk for {clinic_name}")
+                clinic_data_loaded_for_group = True
+            except Exception as e:
+                print(f"ERROR reading or parsing existing {step2_json_path} for {clinic_name}: {e}", file=sys.stderr)
+                traceback.print_exc(file=sys.stderr)
+                # If Step 2 file is corrupted, try to regenerate from Step 1
+                print(f"Attempting to regenerate {step2_json_path} from {step1_json_path}...")
+        
+        if not clinic_data_loaded_for_group:
+            if os.path.exists(step1_json_path):
+                print(f"Found {step1_json_path}, attempting to run STEP2 for {clinic_name} to generate {step2_json_path}...")
+                try:
+                    STEP2.build_csa_replacement_chains(step1_json_path, step2_json_path, None) # None for md_path
+                    print(f"Successfully ran STEP2 for {clinic_name} using existing Step 1 data.")
+                    # Now try to load the newly generated Step 2 file
+                    if os.path.exists(step2_json_path):
+                        with open(step2_json_path, 'r') as f:
+                            clinic_csa_data = json.load(f)
+                        
+                        # Also load Step 1 data for CSA quantity extraction
+                        step1_data = None
+                        if os.path.exists(step1_json_path):
+                            try:
+                                with open(step1_json_path, 'r') as f1:
+                                    step1_data = json.load(f1)
+                            except Exception as e:
+                                print(f"WARNING: Could not load Step 1 data for {clinic_name}: {e}", file=sys.stderr)
+                        
+                        # Combine Step 1 and Step 2 data
+                        combined_data = {
+                            **clinic_csa_data,
+                            'step1_data': step1_data
+                        }
+                        all_clinics_csa_data[clinic_name] = combined_data
+                        print(f"Successfully loaded regenerated {step2_json_path} for {clinic_name}")
+                        clinic_data_loaded_for_group = True
+                    else:
+                        print(f"ERROR: {step2_json_path} not found after STEP2 regeneration for {clinic_name}.", file=sys.stderr)
+                except Exception as e:
+                    print(f"ERROR running STEP2 for {clinic_name} using {step1_json_path}: {e}", file=sys.stderr)
+                    traceback.print_exc(file=sys.stderr)
+            else:
+                print(f"WARNING: Neither {step2_json_path} nor {step1_json_path} found for {clinic_name}. Cannot load or regenerate data from disk.", file=sys.stderr)
+
+        if not clinic_data_loaded_for_group:
+            all_files_found = False # Mark that data for this group could not be loaded/regenerated
+
+    if not all_files_found:
+        print("One or more clinic analysis files were not found or failed to load. Returning partial dataset from disk.")
+        print(f"Successfully loaded data for {len(all_clinics_csa_data)} out of {len(CLINIC_GROUPS)} clinic groups.")
+    
+    if not all_clinics_csa_data: # Handles case where CLINIC_GROUPS is empty or all files were missing
+        print("No clinic data loaded from disk (either no groups defined or no files found).")
+        return None
+
+    if all_files_found:
+        print("Successfully loaded all available clinic data from disk.")
+    else:
+        print(f"Successfully loaded partial clinic data from disk: {list(all_clinics_csa_data.keys())}")
+    return all_clinics_csa_data
+
+def get_aggregated_clinic_data():
+    """
+    Orchestrates FRESH data fetching from Zoho and processing for all defined clinic groups.
+    This will always run STEP1 and STEP2, overwriting existing JSON files.
+    Returns the aggregated data.
+    """
+    print("Starting FRESH clinic data sync from Zoho and processing for API...")
     all_clinics_csa_data = {} # Initialize aggregator for all clinic data
 
-    # Ensure base output directory exists
+    # Ensure base output directory exists (still needed for intermediate files)
     if not os.path.exists(BASE_OUTPUT_DIR):
         os.makedirs(BASE_OUTPUT_DIR)
         print(f"Created base output directory: {BASE_OUTPUT_DIR}")
 
     # Load Zoho configuration once
     try:
-        config = STEP1.load_config()
-        print("Zoho configuration loaded successfully.")
+        # Assuming STEP1.load_config() is still relevant or handled within STEP1.run_step1
+        # If config is only used by run_step1, this explicit call might not be needed here.
+        # For now, keeping it to ensure STEP1 has its requirements met if it expects a pre-loaded config.
+        # config = STEP1.load_config() # This might be redundant if STEP1.run_step1 handles its own config
+        print("Zoho configuration loading (handled by STEP1)...")
     except Exception as e:
-        print(f"FATAL ERROR: Could not load Zoho configuration from {STEP1.CONFIG_PATH}. Exiting.", file=sys.stderr)
-        print(f"Error details: {e}", file=sys.stderr)
-        sys.exit(1)
+        # This error handling might be too aggressive if config loading is truly internal to STEP1
+        # print(f"FATAL ERROR: Could not load Zoho configuration. Exiting.", file=sys.stderr)
+        # print(f"Error details: {e}", file=sys.stderr)
+        # sys.exit(1) # Avoid sys.exit in a library function
+        print(f"Warning: Zoho configuration loading issue (details: {e}). STEP1 will attempt to load.", file=sys.stderr)
+
 
     # Process each clinic group
     for clinic_name, contact_ids in CLINIC_GROUPS.items():
         print(f"\n{'='*20} Processing Group: {clinic_name} {'='*20}")
         sanitized_name = sanitize_filename(clinic_name)
 
-        # Create clinic-specific output directory
+        # Create clinic-specific output directory for intermediate files
         clinic_output_dir = os.path.join(BASE_OUTPUT_DIR, sanitized_name)
         if not os.path.exists(clinic_output_dir):
             os.makedirs(clinic_output_dir)
-            print(f"Created output directory: {clinic_output_dir}")
+            print(f"Created output directory for intermediate files: {clinic_output_dir}")
 
-        # Define file paths for this group
+        # Define file paths for this group (intermediate files)
         step1_json_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step1_data.json")
-        step1_md_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step1_log.md")
+        # step1_md_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step1_log.md") # Log files might not be needed for API
         step2_json_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step2_analysis.json")
-        step2_md_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step2_report.md")
+        # step2_md_path = os.path.join(clinic_output_dir, f"{sanitized_name}_step2_report.md") # Log files might not be needed for API
 
         try:
             # --- Run Step 1 ---
             print(f"\n--- Running Step 1 for {clinic_name} ---")
-            # STEP1.run_step1 now takes 2 arguments: contact_ids and output_json_path
-            # Config is loaded internally in STEP1.run_step1
-            # Logging to step1_md_path needs to be handled by this script if STEP1 no longer does it.
-            # For now, just correcting the call signature.
-            STEP1.run_step1(contact_ids, step1_json_path)
+            STEP1.run_step1(contact_ids, step1_json_path) # Assuming config is handled within
             print(f"--- Step 1 completed for {clinic_name} ---")
 
             # --- Run Step 2 ---
             print(f"\n--- Running Step 2 for {clinic_name} ---")
-            # Ensure STEP2 uses the correct date class if needed within its scope
-            from datetime import date
-            STEP2.build_csa_replacement_chains(step1_json_path, step2_json_path, step2_md_path)
+            from datetime import date # Keep import local if only used here
+            # Pass None for md_path if logging to markdown is not required for API
+            STEP2.build_csa_replacement_chains(step1_json_path, step2_json_path, None)
             print(f"--- Step 2 completed for {clinic_name} ---")
 
             print(f"\nSuccessfully processed group: {clinic_name}")
@@ -155,7 +255,22 @@ def main():
                 try:
                     with open(step2_json_path, 'r') as f:
                         clinic_csa_data = json.load(f)
-                    all_clinics_csa_data[clinic_name] = clinic_csa_data
+                    
+                    # Also load Step 1 data for CSA quantity extraction
+                    step1_data = None
+                    if os.path.exists(step1_json_path):
+                        try:
+                            with open(step1_json_path, 'r') as f1:
+                                step1_data = json.load(f1)
+                        except Exception as e:
+                            print(f"WARNING: Could not load Step 1 data for {clinic_name}: {e}", file=sys.stderr)
+                    
+                    # Combine Step 1 and Step 2 data
+                    combined_data = {
+                        **clinic_csa_data,
+                        'step1_data': step1_data
+                    }
+                    all_clinics_csa_data[clinic_name] = combined_data
                     print(f"Successfully aggregated CSA data for {clinic_name}")
                 except Exception as e:
                     print(f"ERROR reading or aggregating {step2_json_path} for {clinic_name}", file=sys.stderr)
@@ -164,37 +279,22 @@ def main():
             else:
                 print(f"WARNING: No analysis file found for {clinic_name}, skipping aggregation.", file=sys.stderr)
 
-    # After processing all groups, write the aggregated data to a single file
-    aggregated_output_path = os.path.join(BASE_OUTPUT_DIR, "all_clinics_aggregated_csa_data.json")
-    try:
-        with open(aggregated_output_path, 'w') as f:
-            json.dump(all_clinics_csa_data, f, indent=4)
-        print(f"\nSuccessfully wrote aggregated CSA data to: {aggregated_output_path}")
-
-        # --- ADDED: Copy aggregated data to frontend public directory ---
-        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        frontend_public_dir = os.path.join(repo_root, "frontend", "public")
-        frontend_public_data_path = os.path.join(frontend_public_dir, "all_clinics_aggregated_csa_data.json")
-
-        try:
-            os.makedirs(frontend_public_dir, exist_ok=True)
-            print(f"Ensured frontend public directory exists: {frontend_public_dir}")
-
-            shutil.copy2(aggregated_output_path, frontend_public_data_path)
-            print(f"Successfully copied aggregated data to frontend public directory: {frontend_public_data_path}")
-        except Exception as copy_e:
-            print(f"\nERROR copying aggregated data to {frontend_public_data_path}", file=sys.stderr)
-            print(f"Copy error details: {copy_e}", file=sys.stderr)
-            traceback.print_exc(file=sys.stderr)
-        # --- END OF ADDED SECTION ---
-
-    except Exception as e:
-        print(f"\nERROR writing aggregated CSA data to {aggregated_output_path}", file=sys.stderr)
-        print(f"Error details: {e}", file=sys.stderr)
-        traceback.print_exc(file=sys.stderr)
-
-    print(f"\n{'='*20} All clinic processing finished. {'='*20}")
-    print(f"Check the '{BASE_OUTPUT_DIR}' directory for output files.")
+    print(f"\n{'='*20} All clinic processing finished. Returning data. {'='*20}")
+    # print(f"Check the '{BASE_OUTPUT_DIR}' directory for intermediate output files if needed.")
+    return all_clinics_csa_data
 
 if __name__ == "__main__":
-    main()
+    print("Running process_clinics.py as a standalone script for testing...")
+    data = get_aggregated_clinic_data()
+    if data:
+        print("\nSuccessfully retrieved aggregated data:")
+        # Print a summary or a few items for brevity
+        for clinic, clinic_data in list(data.items())[:2]: # Print first 2 clinics
+            print(f"\nClinic: {clinic}")
+            # print(json.dumps(clinic_data, indent=2)) # Can be very verbose
+            print(f"  Number of cohorts/keys: {len(clinic_data.keys()) if isinstance(clinic_data, dict) else 'N/A (not a dict)'}")
+        if len(data) > 2:
+            print(f"\n... and {len(data) - 2} more clinics.")
+    else:
+        print("\nNo data retrieved or an error occurred.")
+    print("\nStandalone script execution finished.")

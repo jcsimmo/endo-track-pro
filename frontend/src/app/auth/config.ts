@@ -52,9 +52,17 @@ const configSchema = z.object({
 
 type FirebaseExtensionConfig = z.infer<typeof configSchema>;
 
-// This is set by vite.config.ts
-declare const __FIREBASE_CONFIG__: string;
+// This is set by vite.config.ts as a Base64 encoded string
+declare const __FIREBASE_CONFIG_BASE64__: string;
 
 export const config: FirebaseExtensionConfig = configSchema.parse(
-  JSON.parse(__FIREBASE_CONFIG__),
+  (() => {
+    try {
+      const decodedString = atob(__FIREBASE_CONFIG_BASE64__);
+      return JSON.parse(decodedString);
+    } catch (e) {
+      console.error("config.ts: Error decoding or parsing Base64 config:", e, __FIREBASE_CONFIG_BASE64__);
+      return {}; // Fallback to empty object on error
+    }
+  })(),
 );

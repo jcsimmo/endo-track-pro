@@ -155,7 +155,7 @@ def get_inventory_items():
         page_context=data.get("page_context")
     )
 
-@router.get("/configure-prompt")
+@router.get("/configure-prompt") # Add leading slash back
 def configure_zoho_prompt():
     """Check which Zoho secrets are missing and provide instructions"""
     # List of required secrets

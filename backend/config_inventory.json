@@ -1,0 +1,13 @@
+{
+  "client_id": "1000.G3LG0L6QA86K12J3PJZWU3R5289X9F",
+  "client_secret": "d1b69b80ef9e9b6bd7e81d390398383e427e8d7262",
+  "refresh_token": "1000.1b107fc7822fa0c97bad71d58456154e.a323e8c1defc438e0e6b3d7cd6cdb8e6",
+  "api_domain": "https://www.zohoapis.com",
+  "access_token": "1000.ee42b1f7271c3b92881b1d8c5d55693d.db82140af58fbd5f7b8bd109117af7ed",
+  "organization_id": "792214781",
+  "services": {
+    "inventory": {
+      "endpoint": "/inventory/v1"
+    }
+  }
+}

@@ -1,0 +1,1859 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/oasis/oasis_step1_data.json",
+        "customer_name_or_group": "Group (3565249000001061039,3565249000009055755)",
+        "contact_ids_processed": [
+            "3565249000001061039",
+            "3565249000009055755"
+        ],
+        "sales_order_count": 29,
+        "sales_return_count": 31,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00042",
+                "csaLength": "2 year",
+                "startDate": "2023-03-22",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-03-22",
+                "warningDate": "2025-01-21",
+                "remainingReplacements": 37,
+                "totalReplacements": 40,
+                "initialScopeCount": 10,
+                "currentValidatedInFieldCount": 10,
+                "available_slots_pre_orphan_assignment": 0
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "370.2315",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "370.2315",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "370.2374",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "370.2374",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "370.2378",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "370.2378",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "370.2391",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "370.2391",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0273",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0273",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0275",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0565",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.1000",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.1000",
+                        "handoffs": [
+                            "Returned 380.0275 on 2023-04-13, replaced by 380.0565 shipped on 2023-04-30",
+                            "Returned 380.0565 on 2023-11-12, replaced by 380.1000 shipped on 2023-11-12"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0277",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0277",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0278",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0278",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0282",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0282",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.2241",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0592",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0592",
+                        "handoffs": [
+                            "Returned 380.2241 on 2023-05-01, replaced by 380.0592 shipped on 2023-05-17"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "cohort_summary": {
+                "orderId": "SO-00062",
+                "csaLength": "2 year",
+                "startDate": "2023-05-17",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-05-17",
+                "warningDate": "2025-03-18",
+                "remainingReplacements": 22,
+                "totalReplacements": 40,
+                "initialScopeCount": 10,
+                "currentValidatedInFieldCount": 8,
+                "available_slots_pre_orphan_assignment": 2
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0592",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0592",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0596",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2640",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.5001",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "381.0005",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "381.0005",
+                        "handoffs": [
+                            "Returned 380.0596 on 2024-06-17, replaced by 380.2640 shipped on 2024-06-20",
+                            "Returned 380.2640 on 2024-12-10, replaced by 380.5001 shipped on 2024-12-16",
+                            "Returned 380.5001 on 2025-02-12, replaced by 381.0005 shipped on 2025-02-14"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0878",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.3349",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2635",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.1903",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "381.0003",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "381.0003",
+                        "handoffs": [
+                            "Returned 380.0878 on 2024-01-25, replaced by 380.3349 shipped on 2024-02-16",
+                            "Returned 380.3349 on 2024-06-17, replaced by 380.2635 shipped on 2024-06-20",
+                            "Returned 380.2635 on 2024-12-10, replaced by 380.1903 shipped on 2024-12-16",
+                            "Returned 380.1903 on 2025-02-12, replaced by 381.0003 shipped on 2025-02-14"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0885",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2884",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0879",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0879",
+                        "handoffs": [
+                            "Returned 380.0885 on 2024-01-25, replaced by 380.2884 shipped on 2024-02-16",
+                            "Returned 380.2884 on 2024-10-16, replaced by 380.0879 shipped on 2024-11-11"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0889",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2890",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2617",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.3376",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3376",
+                        "handoffs": [
+                            "Returned 380.0889 on 2024-01-25, replaced by 380.2890 shipped on 2024-02-16",
+                            "Returned 380.2890 on 2024-06-17, replaced by 380.2617 shipped on 2024-06-20",
+                            "Returned 380.2617 on 2024-08-27, replaced by 380.3376 shipped on 2024-08-30"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0891",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0936",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2639",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0568",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "381.0004",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "381.0004",
+                        "handoffs": [
+                            "Returned 380.0891 on 2024-05-10, replaced by 380.0936 shipped on 2024-05-20",
+                            "Returned 380.0936 on 2024-06-17, replaced by 380.2639 shipped on 2024-06-20",
+                            "Returned 380.2639 on 2024-12-30, replaced by 380.0568 shipped on 2025-01-07",
+                            "Returned 380.0568 on 2025-02-12, replaced by 381.0004 shipped on 2025-02-14"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0892",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0892",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0927",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2896",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0596",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.2640",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.5001",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "381.0005",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "381.0005",
+                        "handoffs": [
+                            "Returned 380.0927 on 2024-03-14, replaced by 380.2896 shipped on 2024-04-01",
+                            "Returned 380.2896 on 2025-04-08, replaced by 380.0596 shipped on 2025-04-08",
+                            "Returned 380.0596 on 2024-06-17, replaced by 380.2640 shipped on 2024-06-20",
+                            "Returned 380.2640 on 2024-12-10, replaced by 380.5001 shipped on 2024-12-16",
+                            "Returned 380.5001 on 2025-02-12, replaced by 381.0005 shipped on 2025-02-14"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0594",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0594",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0930",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0930",
+                        "handoffs": []
+                    }
+                ]
+            }
+        },
+        {
+            "cohort_summary": {
+                "orderId": "SO-00316",
+                "csaLength": "1 year",
+                "startDate": "2024-08-16",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-08-16",
+                "warningDate": "2025-06-17",
+                "remainingReplacements": 17,
+                "totalReplacements": 20,
+                "initialScopeCount": 5,
+                "currentValidatedInFieldCount": 3,
+                "available_slots_pre_orphan_assignment": 2
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3322",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3322",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3323",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3323",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3372",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "390.2565",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.2565",
+                        "handoffs": [
+                            "Returned 380.3372 on 2025-04-03, replaced by 390.2565 shipped on 2025-04-10"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.2919",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0888",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0888",
+                        "handoffs": [
+                            "Returned 380.2919 on 2024-10-16, replaced by 380.0888 shipped on 2024-11-11"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3350",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0875",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0875",
+                        "handoffs": [
+                            "Returned 380.3350 on 2024-12-10, replaced by 380.0875 shipped on 2024-12-16"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "cohort_summary": {
+                "orderId": "SO-00445",
+                "csaLength": "1 year",
+                "startDate": "2025-04-10",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2026-04-10",
+                "warningDate": "2026-02-09",
+                "remainingReplacements": 8,
+                "totalReplacements": 8,
+                "initialScopeCount": 2,
+                "currentValidatedInFieldCount": 2,
+                "available_slots_pre_orphan_assignment": 0
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.2549",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.2549",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.2565",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.2565",
+                        "handoffs": []
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [
+        {
+            "chain": [
+                {
+                    "serial": "380.0587",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.0587",
+            "starter_serial": "380.0587",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "380.1887",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.1887",
+            "starter_serial": "380.1887",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "380.0928",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.0928",
+            "starter_serial": "380.0928",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00062",
+            "assignment_reason": "Initial ship date 2025-04-14 is on or after cohort SO-00062 start date 2023-05-17. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "380.1001",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.1001",
+            "starter_serial": "380.1001",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00062",
+            "assignment_reason": "Initial ship date 2023-11-12 is on or after cohort SO-00062 start date 2023-05-17. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "380.0577",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.0577",
+            "starter_serial": "380.0577",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00316",
+            "assignment_reason": "Initial ship date 2024-11-11 is on or after cohort SO-00316 start date 2024-08-16. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "380.0588",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "380.0588",
+            "starter_serial": "380.0588",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00316",
+            "assignment_reason": "Initial ship date 2025-04-25 is on or after cohort SO-00316 start date 2024-08-16. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        }
+    ],
+    "status_summary": {
+        "total_shipped_unique": 71,
+        "total_returned_plausible_unique": 24,
+        "serials_involved_in_validated_chains": 48,
+        "serials_involved_in_any_chain_analysis": 54,
+        "identified_orphan_serials": 23,
+        "suspected_in_field": {
+            "count": 47,
+            "serial_numbers": [
+                "370.2315",
+                "370.2374",
+                "370.2378",
+                "370.2391",
+                "380.0273",
+                "380.0277",
+                "380.0278",
+                "380.0282",
+                "380.0573",
+                "380.0577",
+                "380.0582",
+                "380.0586",
+                "380.0587",
+                "380.0588",
+                "380.0592",
+                "380.0594",
+                "380.0600",
+                "380.0611",
+                "380.0875",
+                "380.0879",
+                "380.0882",
+                "380.0888",
+                "380.0892",
+                "380.0917",
+                "380.0924",
+                "380.0928",
+                "380.0930",
+                "380.1000",
+                "380.1001",
+                "380.1005",
+                "380.1037",
+                "380.1887",
+                "380.2604",
+                "380.2643",
+                "380.2899",
+                "380.3322",
+                "380.3323",
+                "380.3329",
+                "380.3351",
+                "380.3358",
+                "380.3376",
+                "380.4045",
+                "381.0003",
+                "381.0004",
+                "381.0005",
+                "390.2549",
+                "390.2565"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "390.2565": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00445",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00596",
+            "shipmentDate": "2025-04-10"
+        },
+        "390.2549": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00445",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-04-10",
+            "packageNumber": "PKG-00596",
+            "shipmentDate": "2025-04-10"
+        },
+        "380.0596": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0928": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00442",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-04-08",
+            "packageNumber": "PKG-00594",
+            "shipmentDate": "2025-04-08"
+        },
+        "381.0003": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00407",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-02-10",
+            "packageNumber": "PKG-00563",
+            "shipmentDate": "2025-02-10"
+        },
+        "381.0004": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00407",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-02-10",
+            "packageNumber": "PKG-00563",
+            "shipmentDate": "2025-02-10"
+        },
+        "381.0005": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00407",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-02-10",
+            "packageNumber": "PKG-00563",
+            "shipmentDate": "2025-02-10"
+        },
+        "380.0568": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00049",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-04-05",
+            "packageNumber": "PKG-00102",
+            "shipmentDate": "2023-04-06"
+        },
+        "380.0600": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00075",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00159",
+            "shipmentDate": "2023-06-19"
+        },
+        "380.0917": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00383",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00536",
+            "shipmentDate": "2024-12-30"
+        },
+        "380.1903": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00377",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-12-10",
+            "packageNumber": "PKG-00530",
+            "shipmentDate": "2024-12-10"
+        },
+        "380.5001": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00071",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-06-07",
+            "packageNumber": "PKG-00154",
+            "shipmentDate": "2023-06-07"
+        },
+        "380.0875": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00377",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-12-10",
+            "packageNumber": "PKG-00530",
+            "shipmentDate": "2024-12-10"
+        },
+        "380.0879": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00349",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-10-16",
+            "packageNumber": "PKG-00508",
+            "shipmentDate": "2024-11-04"
+        },
+        "380.0888": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00071",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-06-07",
+            "packageNumber": "PKG-00154",
+            "shipmentDate": "2023-06-07"
+        },
+        "380.0577": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00349",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-10-16",
+            "packageNumber": "PKG-00508",
+            "shipmentDate": "2024-11-04"
+        },
+        "380.3376": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00322",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00467",
+            "shipmentDate": "2024-08-27"
+        },
+        "380.3329": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00322",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00467",
+            "shipmentDate": "2024-08-27"
+        },
+        "380.3351": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00322",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00467",
+            "shipmentDate": "2024-08-27"
+        },
+        "380.3372": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00316",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-13",
+            "packageNumber": "PKG-00460",
+            "shipmentDate": "2024-08-13"
+        },
+        "380.3323": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00316",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-13",
+            "packageNumber": "PKG-00460",
+            "shipmentDate": "2024-08-13"
+        },
+        "380.3350": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00316",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-13",
+            "packageNumber": "PKG-00460",
+            "shipmentDate": "2024-08-13"
+        },
+        "380.3322": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00316",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-13",
+            "packageNumber": "PKG-00460",
+            "shipmentDate": "2024-08-13"
+        },
+        "380.2919": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00316",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-08-13",
+            "packageNumber": "PKG-00460",
+            "shipmentDate": "2024-08-13"
+        },
+        "380.2617": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00279",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-06-17",
+            "packageNumber": "PKG-00421",
+            "shipmentDate": "2024-06-17"
+        },
+        "380.2635": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00279",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-06-17",
+            "packageNumber": "PKG-00421",
+            "shipmentDate": "2024-06-17"
+        },
+        "380.2639": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00279",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-06-17",
+            "packageNumber": "PKG-00421",
+            "shipmentDate": "2024-06-17"
+        },
+        "380.2640": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00279",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-06-17",
+            "packageNumber": "PKG-00421",
+            "shipmentDate": "2024-06-17"
+        },
+        "380.2643": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00279",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-06-17",
+            "packageNumber": "PKG-00421",
+            "shipmentDate": "2024-06-17"
+        },
+        "380.0936": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00260",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-05-13",
+            "packageNumber": "PKG-00403",
+            "shipmentDate": "2024-05-13"
+        },
+        "380.1887": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00260",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-05-13",
+            "packageNumber": "PKG-00403",
+            "shipmentDate": "2024-05-13"
+        },
+        "380.2604": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00260",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-05-13",
+            "packageNumber": "PKG-00403",
+            "shipmentDate": "2024-05-13"
+        },
+        "380.0924": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00260",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-05-13",
+            "packageNumber": "PKG-00403",
+            "shipmentDate": "2024-05-13"
+        },
+        "380.2896": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00232",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-03-26",
+            "packageNumber": "PKG-00375",
+            "shipmentDate": "2024-03-26"
+        },
+        "380.3358": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00232",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-03-26",
+            "packageNumber": "PKG-00375",
+            "shipmentDate": "2024-03-26"
+        },
+        "380.4045": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00232",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-03-26",
+            "packageNumber": "PKG-00375",
+            "shipmentDate": "2024-03-26"
+        },
+        "380.2884": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00192",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-02-08",
+            "packageNumber": "PKG-00327",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.2890": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00192",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-02-08",
+            "packageNumber": "PKG-00327",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.3349": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00192",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-02-08",
+            "packageNumber": "PKG-00327",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.2899": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00192",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2024-02-08",
+            "packageNumber": "PKG-00327",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.1000": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00131",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-11-12",
+            "packageNumber": "PKG-00235",
+            "shipmentDate": "2023-11-12"
+        },
+        "380.1001": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00131",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-11-12",
+            "packageNumber": "PKG-00235",
+            "shipmentDate": "2023-11-12"
+        },
+        "380.1005": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00131",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-11-12",
+            "packageNumber": "PKG-00235",
+            "shipmentDate": "2023-11-12"
+        },
+        "380.1037": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00131",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-11-12",
+            "packageNumber": "PKG-00235",
+            "shipmentDate": "2023-11-12"
+        },
+        "380.0573": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00075",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00159",
+            "shipmentDate": "2023-06-19"
+        },
+        "380.0882": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00075",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-06-14",
+            "packageNumber": "PKG-00159",
+            "shipmentDate": "2023-06-19"
+        },
+        "380.0611": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00068",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-06-06",
+            "packageNumber": "PKG-00149",
+            "shipmentDate": "2023-06-06"
+        },
+        "SMNK218GVL27047": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK218GVL27048": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK218GVL27049": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK217GWC22036": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK217GWC22037": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK217GWC22038": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK217GWC22054": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK217GWC22057": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "SMNK217GWC22060": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00136",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0592": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0892": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0927": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0930": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0889": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0885": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0878": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00137",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0891": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00138",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0594": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00062",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-05-17",
+            "packageNumber": "PKG-00138",
+            "shipmentDate": "2023-05-17"
+        },
+        "380.0565": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00058",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-04-24",
+            "packageNumber": "PKG-00130",
+            "shipmentDate": "2023-04-30"
+        },
+        "380.0587": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00463",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-04-25",
+            "packageNumber": "PKG-00610",
+            "shipmentDate": "2025-04-25"
+        },
+        "380.0586": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00058",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-04-24",
+            "packageNumber": "PKG-00130",
+            "shipmentDate": "2023-04-30"
+        },
+        "380.0582": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00049",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-04-05",
+            "packageNumber": "PKG-00102",
+            "shipmentDate": "2023-04-06"
+        },
+        "380.0273": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "380.2241": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "370.2374": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "370.2315": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "370.2378": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "370.2391": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "380.0278": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "380.0277": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "380.0282": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "380.0275": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00093",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27059": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00094",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27060": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00094",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27067": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00094",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27051": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00095",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27069": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00095",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27070": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00095",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27054": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00096",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27063": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00096",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27061": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00097",
+            "shipmentDate": "2023-03-22"
+        },
+        "SMNK218GVL27066": {
+            "itemName": "LE Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00042",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2023-03-17",
+            "packageNumber": "PKG-00097",
+            "shipmentDate": "2023-03-22"
+        },
+        "380.0588": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00463",
+            "soCustomerName": "Oasis",
+            "salesOrderDate": "2025-04-25",
+            "packageNumber": "PKG-00610",
+            "shipmentDate": "2025-04-25"
+        }
+    },
+    "speculative_orphan_analysis_by_cohort": {
+        "No Suitable Cohort Found (Capacity)": {
+            "P313N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "380.0587",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.0587",
+                    "starter_serial": "380.0587",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "380.1887",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.1887",
+                    "starter_serial": "380.1887",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                }
+            ]
+        },
+        "SO-00062": {
+            "P313N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "380.0928",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.0928",
+                    "starter_serial": "380.0928",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00062",
+                    "assignment_reason": "Initial ship date 2025-04-14 is on or after cohort SO-00062 start date 2023-05-17. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "380.1001",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.1001",
+                    "starter_serial": "380.1001",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00062",
+                    "assignment_reason": "Initial ship date 2023-11-12 is on or after cohort SO-00062 start date 2023-05-17. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                }
+            ]
+        },
+        "SO-00316": {
+            "P313N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "380.0577",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.0577",
+                    "starter_serial": "380.0577",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00316",
+                    "assignment_reason": "Initial ship date 2024-11-11 is on or after cohort SO-00316 start date 2024-08-16. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "380.0588",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "380.0588",
+                    "starter_serial": "380.0588",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00316",
+                    "assignment_reason": "Initial ship date 2025-04-25 is on or after cohort SO-00316 start date 2024-08-16. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                }
+            ]
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 22,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [
+            {
+                "serial": "380.0582",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00042",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370316"
+            },
+            {
+                "serial": "380.0568",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00042",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370336"
+            },
+            {
+                "serial": "380.0587",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00042",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370343"
+            },
+            {
+                "serial": "380.0586",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00042",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370349"
+            },
+            {
+                "serial": "380.0611",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370354"
+            },
+            {
+                "serial": "380.0888",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370359"
+            },
+            {
+                "serial": "380.5001",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370364"
+            },
+            {
+                "serial": "380.0573",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370368"
+            },
+            {
+                "serial": "380.0882",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370373"
+            },
+            {
+                "serial": "380.0600",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370377"
+            },
+            {
+                "serial": "380.1005",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370382"
+            },
+            {
+                "serial": "380.1037",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370386"
+            },
+            {
+                "serial": "380.2899",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370391"
+            },
+            {
+                "serial": "380.3358",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370395"
+            },
+            {
+                "serial": "380.4045",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370399"
+            },
+            {
+                "serial": "380.2604",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370403"
+            },
+            {
+                "serial": "380.0924",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370408"
+            },
+            {
+                "serial": "380.2643",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00062",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370413"
+            },
+            {
+                "serial": "380.3329",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00316",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370417"
+            },
+            {
+                "serial": "380.3351",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00316",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370422"
+            },
+            {
+                "serial": "380.0600",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00316",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370427"
+            },
+            {
+                "serial": "380.0917",
+                "original_cohort": null,
+                "assigned_cohort": "SO-00316",
+                "violation_type": "sro_cross_cohort_assignment",
+                "reason": "no_original_cohort",
+                "timestamp": "2025-06-06T16:28:08.370431"
+            }
+        ],
+        "violation_count": 22,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 0.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}

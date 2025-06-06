@@ -1,0 +1,351 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/national_breathe_free_jacksonville/national_breathe_free_jacksonville_step1_data.json",
+        "customer_name_or_group": "Group (3565249000007975003,3565249000007073019)",
+        "contact_ids_processed": [
+            "3565249000007975003",
+            "3565249000007073019"
+        ],
+        "sales_order_count": 4,
+        "sales_return_count": 5,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00323",
+                "csaLength": "1 year",
+                "startDate": "2024-09-16",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-09-16",
+                "warningDate": "2025-07-18",
+                "remainingReplacements": 29,
+                "totalReplacements": 32,
+                "initialScopeCount": 8,
+                "currentValidatedInFieldCount": 5,
+                "available_slots_pre_orphan_assignment": 3
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3333",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3333",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3343",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3343",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3357",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3357",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3373",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3373",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3386",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3386",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3321",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.1040",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.1040",
+                        "handoffs": [
+                            "Returned 380.3321 on 2025-01-17, replaced by 380.1040 shipped on 2025-01-23"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3337",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0891",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0891",
+                        "handoffs": [
+                            "Returned 380.3337 on 2025-01-17, replaced by 380.0891 shipped on 2025-01-23"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3370",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0930",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.0930",
+                        "handoffs": [
+                            "Returned 380.3370 on 2025-01-17, replaced by 380.0930 shipped on 2025-01-23"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [],
+    "status_summary": {
+        "total_shipped_unique": 11,
+        "total_returned_plausible_unique": 3,
+        "serials_involved_in_validated_chains": 11,
+        "serials_involved_in_any_chain_analysis": 11,
+        "identified_orphan_serials": 3,
+        "suspected_in_field": {
+            "count": 8,
+            "serial_numbers": [
+                "380.0891",
+                "380.0930",
+                "380.1040",
+                "380.3333",
+                "380.3343",
+                "380.3357",
+                "380.3373",
+                "380.3386"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "380.0930": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00398",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2025-01-17",
+            "packageNumber": "PKG-00550",
+            "shipmentDate": "2025-01-17"
+        },
+        "380.1040": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00398",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2025-01-17",
+            "packageNumber": "PKG-00550",
+            "shipmentDate": "2025-01-17"
+        },
+        "380.0891": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00398",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2025-01-17",
+            "packageNumber": "PKG-00550",
+            "shipmentDate": "2025-01-17"
+        },
+        "SMNK217GWD18031": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "SMNK217GWC22069": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "SMNK217GWD18035": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "SMNK217GWC22063": {
+            "itemName": "LE 22\" All-in-one Endoscopy Camera System",
+            "itemSku": "Z008774",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3386": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3321": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3370": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3343": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3373": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3333": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3357": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.3337": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.0151": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 30 deg",
+            "itemSku": "P313N30",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.0997": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 30 deg",
+            "itemSku": "P313N30",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        },
+        "380.1702": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 30 deg",
+            "itemSku": "P313N30",
+            "salesOrderNumber": "SO-00323",
+            "soCustomerName": "National Breathe Free & Allergy Centers Jacksonville, Fl",
+            "salesOrderDate": "2024-08-27",
+            "packageNumber": "PKG-00474",
+            "shipmentDate": "2024-09-11"
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 0,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [],
+        "violation_count": 0,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 1.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}

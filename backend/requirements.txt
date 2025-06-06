@@ -1,10 +1,12 @@
 # Workspace version: 1.45.6
-databutton==0.38.34
+databutton
 ipykernel==6.29.5
-fastapi==0.111.0
+fastapi==0.86.0
 python-multipart==0.0.9
-uvicorn[standard]==0.29.0
+uvicorn[standard]==0.19.0
 
 openai
 beautifulsoup4
 requests
+python-dateutil
+scipy

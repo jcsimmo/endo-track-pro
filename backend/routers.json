@@ -24,6 +24,16 @@
       "name": "process_clinics",
       "version": "2025-05-19T22:00:31",
       "disableAuth": false
+    },
+    "clinic_data": {
+      "name": "clinic_data",
+      "version": "2025-05-22T16:58:00",
+      "disableAuth": true
+    },
+    "customers": {
+      "name": "customers",
+      "version": "2025-05-22T21:49:00",
+      "disableAuth": true
     }
   }
 }

@@ -201,7 +201,7 @@ def get_task_status(task_id: str):
         json_key=task_data.get("json_key")
     )
 
-@router.get("/download-json/{json_key}")
+@router.get("/download-json/{json_key}") # Add leading slash back
 def download_json(json_key: str):
     """Download the generated JSON data"""
     try:

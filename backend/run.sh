@@ -8,4 +8,4 @@ cd "$SCRIPT_DIR" || exit
 
 source .venv/bin/activate
 
-uvicorn main:app --reload
+uvicorn main:app --port 8123

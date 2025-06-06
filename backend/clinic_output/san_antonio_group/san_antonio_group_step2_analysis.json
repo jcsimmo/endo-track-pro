@@ -1,0 +1,192 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/san_antonio_group/san_antonio_group_step1_data.json",
+        "customer_name_or_group": "Group (3565249000009055348,3565249000010510031)",
+        "contact_ids_processed": [
+            "3565249000009055348",
+            "3565249000010510031"
+        ],
+        "sales_order_count": 2,
+        "sales_return_count": 2,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00405",
+                "csaLength": "1 year",
+                "startDate": "2025-02-04",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2026-02-04",
+                "warningDate": "2025-12-06",
+                "remainingReplacements": 19,
+                "totalReplacements": 20,
+                "initialScopeCount": 5,
+                "currentValidatedInFieldCount": 4,
+                "available_slots_pre_orphan_assignment": 1
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0887",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0887",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.1803",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.0936",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0936",
+                        "handoffs": [
+                            "Returned 390.1803 on 2025-04-28, replaced by 380.0936 shipped on 2025-04-28"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.1815",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.1815",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.1848",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.1848",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "390.1842",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "390.1842",
+                        "handoffs": []
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [],
+    "status_summary": {
+        "total_shipped_unique": 6,
+        "total_returned_plausible_unique": 1,
+        "serials_involved_in_validated_chains": 6,
+        "serials_involved_in_any_chain_analysis": 6,
+        "identified_orphan_serials": 1,
+        "suspected_in_field": {
+            "count": 5,
+            "serial_numbers": [
+                "380.0887",
+                "380.0936",
+                "390.1815",
+                "390.1842",
+                "390.1848"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "380.0936": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00464",
+            "soCustomerName": "San Antonio-National BreatheFree",
+            "salesOrderDate": "2025-04-28",
+            "packageNumber": "PKG-00611",
+            "shipmentDate": "2025-04-28"
+        },
+        "390.1803": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00405",
+            "soCustomerName": "San Antonio-National BreatheFree",
+            "salesOrderDate": "2025-01-29",
+            "packageNumber": "PKG-00561",
+            "shipmentDate": "2025-01-30"
+        },
+        "390.1848": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00405",
+            "soCustomerName": "San Antonio-National BreatheFree",
+            "salesOrderDate": "2025-01-29",
+            "packageNumber": "PKG-00561",
+            "shipmentDate": "2025-01-30"
+        },
+        "390.1842": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00405",
+            "soCustomerName": "San Antonio-National BreatheFree",
+            "salesOrderDate": "2025-01-29",
+            "packageNumber": "PKG-00561",
+            "shipmentDate": "2025-01-30"
+        },
+        "390.1815": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00405",
+            "soCustomerName": "San Antonio-National BreatheFree",
+            "salesOrderDate": "2025-01-29",
+            "packageNumber": "PKG-00561",
+            "shipmentDate": "2025-01-30"
+        },
+        "380.0887": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00405",
+            "soCustomerName": "San Antonio-National BreatheFree",
+            "salesOrderDate": "2025-01-29",
+            "packageNumber": "PKG-00589",
+            "shipmentDate": "2025-03-25"
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 0,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [],
+        "violation_count": 0,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 1.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}

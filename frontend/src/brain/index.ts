@@ -7,9 +7,11 @@ const isLocalhost = /localhost:\d{4}/i.test(window.location.origin);
 
 const constructBaseUrl = (): string => {
   if (isLocalhost) {
-    return `${window.location.origin}${API_PATH}`;
+    // When running locally, explicitly use the backend port 8123
+    return `http://localhost:8123${API_PATH}`;
   }
 
+  // For deployed environments, use the databutton API URL
   return `https://api.databutton.com${API_PATH}`;
 };
 

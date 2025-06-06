@@ -1,5 +1,5 @@
 import brain from "brain";
-import { Cohort } from "./cohort-types";
+import { Cohort, Serial } from "./cohort-types";
 
 /**
  * Fetches and processes Zoho data for CSA cohorts
@@ -18,12 +18,17 @@ export const fetchZohoData = async (
     console.log("Starting Zoho data fetch...");
     
     // Step 1: Fetch customer list
+    console.log("Calling brain.list_customers()...");
     const customersResponse = await brain.list_customers();
+    console.log("Received customers response:", customersResponse.status, customersResponse.ok);
+    
     if (!customersResponse.ok) {
       throw new Error(`Failed to fetch customers: ${customersResponse.status} ${customersResponse.statusText}`);
     }
     
+    console.log("Parsing customers response JSON...");
     const customersData = await customersResponse.json();
+    console.log("Customers data:", customersData);
     if (!customersData.customers || customersData.customers.length === 0) {
       throw new Error("No customers found. Please import customer data first.");
     }
@@ -130,6 +135,12 @@ export const processZohoData = (data: any): Cohort[] => {
     return [];
   }
   
+  // Check if we have the new processed data structure from backend
+  if (data.csa_replacement_chains || data.speculative_orphan_analysis) {
+    console.log("Using new processed CSA data structure");
+    return processProcessedCSAData(data);
+  }
+  
   // Check if we have the expected csa_cohorts_final structure
   if (data.csa_cohorts_final) {
     // Process using the expected structure
@@ -145,6 +156,189 @@ export const processZohoData = (data: any): Cohort[] => {
   
   console.error("Unknown data structure. Available keys:", Object.keys(data));
   return [];
+};
+
+/**
+ * Process the new backend-processed CSA data structure
+ */
+const processProcessedCSAData = (data: any): Cohort[] => {
+  console.log("Processing new processed CSA data structure");
+  
+  const cohorts: Cohort[] = [];
+  
+  // Extract customer name from processing info
+  const customerName = data.processing_info?.customer_name_or_group || "Unknown Customer";
+  
+  // Process CSA replacement chains (validated cohorts)
+  const csaChains = data.csa_replacement_chains || [];
+  
+  for (const chainGroup of csaChains) {
+    const cohortSummary = chainGroup.cohort_summary;
+    if (!cohortSummary) continue;
+    
+    const cohortId = cohortSummary.orderId;
+    const startDate = cohortSummary.startDate || "";
+    const endDate = cohortSummary.endDate || "";
+    const totalReplacements = cohortSummary.totalReplacements || 0;
+    const remainingReplacements = cohortSummary.remainingReplacements || 0;
+    const usedReplacements = totalReplacements - remainingReplacements;
+    
+    // Determine status
+    let status: 'active' | 'maxed' | 'expired' = 'active';
+    if (remainingReplacements <= 0) {
+      status = 'maxed';
+    } else if (new Date(endDate) < new Date()) {
+      status = 'expired';
+    }
+    
+    // Process chains to get serials
+    const serials: Serial[] = [];
+    const chains = chainGroup.chains || [];
+    
+    for (const chain of chains) {
+      if (!chain.chain || !Array.isArray(chain.chain)) continue;
+      
+      // Process each serial in the chain
+      for (let i = 0; i < chain.chain.length; i++) {
+        const chainItem = chain.chain[i];
+        const isLastInChain = i === chain.chain.length - 1;
+        
+        // Extract serial and SKU - handle both old string format and new object format
+        let serialNumber: string;
+        let serialSku: string;
+        
+        if (typeof chainItem === 'string') {
+          // Old format - just a serial number string
+          serialNumber = chainItem;
+          serialSku = data.processing_info?.target_skus?.[0] || "P313N00";
+        } else if (chainItem && typeof chainItem === 'object' && chainItem.serial) {
+          // New format - object with serial and sku
+          serialNumber = chainItem.serial;
+          serialSku = chainItem.sku || "Unknown";
+        } else {
+          console.warn("Unexpected chain item format:", chainItem);
+          continue;
+        }
+        
+        // Determine status based on position and final status
+        let serialStatus: 'active' | 'replaced' | 'retired' = 'active';
+        if (!isLastInChain) {
+          serialStatus = 'replaced';
+        } else if (chain.final_status !== 'inField') {
+          serialStatus = 'retired';
+        }
+        
+        serials.push({
+          id: serialNumber,
+          model: serialSku,
+          status: serialStatus,
+          replacementDate: null, // Could extract from handoffs if needed
+          chainInfo: {
+            isPartOfChain: chain.chain.length > 1,
+            chainType: 'validated',
+            isLastInChain,
+            chainPosition: i + 1,
+            chainLength: chain.chain.length
+          }
+        });
+      }
+    }
+    
+    // Count active and total units
+    const activeUnits = serials.filter(s => s.status === 'active').length;
+    const totalUnits = serials.length;
+    
+    cohorts.push({
+      id: cohortId,
+      customer: customerName,
+      totalUnits,
+      activeUnits,
+      replacementsUsed: usedReplacements,
+      replacementsTotal: totalReplacements,
+      startDate,
+      endDate,
+      status,
+      serials
+    });
+  }
+  
+  // Process orphan analysis if available
+  const orphanAnalysis = data.speculative_orphan_analysis || [];
+  
+  // Group orphans by assigned cohort
+  const orphansByCohort: Record<string, any[]> = {};
+  
+  for (const orphan of orphanAnalysis) {
+    const assignedCohort = orphan.assigned_cohort;
+    if (assignedCohort) {
+      if (!orphansByCohort[assignedCohort]) {
+        orphansByCohort[assignedCohort] = [];
+      }
+      orphansByCohort[assignedCohort].push(orphan);
+    }
+  }
+  
+  // Add orphan serials to their assigned cohorts
+  for (const cohort of cohorts) {
+    const orphansForCohort = orphansByCohort[cohort.id] || [];
+    
+    for (const orphan of orphansForCohort) {
+      if (!orphan.chain || !Array.isArray(orphan.chain)) continue;
+      
+      // Process each serial in the orphan chain
+      for (let i = 0; i < orphan.chain.length; i++) {
+        const chainItem = orphan.chain[i];
+        const isLastInChain = i === orphan.chain.length - 1;
+        
+        // Extract serial and SKU - handle both old string format and new object format
+        let serialNumber: string;
+        let serialSku: string;
+        
+        if (typeof chainItem === 'string') {
+          // Old format - just a serial number string
+          serialNumber = chainItem;
+          serialSku = data.processing_info?.target_skus?.[0] || "P313N00";
+        } else if (chainItem && typeof chainItem === 'object' && chainItem.serial) {
+          // New format - object with serial and sku
+          serialNumber = chainItem.serial;
+          serialSku = chainItem.sku || "Unknown";
+        } else {
+          console.warn("Unexpected orphan chain item format:", chainItem);
+          continue;
+        }
+        
+        // Determine status
+        let serialStatus: 'active' | 'replaced' | 'retired' = 'active';
+        if (!isLastInChain) {
+          serialStatus = 'replaced';
+        } else if (orphan.final_status !== 'inField') {
+          serialStatus = 'retired';
+        }
+        
+        cohort.serials.push({
+          id: serialNumber,
+          model: serialSku,
+          status: serialStatus,
+          replacementDate: null,
+          chainInfo: {
+            isPartOfChain: orphan.chain.length > 1,
+            chainType: 'orphan',
+            isLastInChain,
+            chainPosition: i + 1,
+            chainLength: orphan.chain.length
+          }
+        });
+      }
+    }
+    
+    // Recalculate counts after adding orphans
+    cohort.activeUnits = cohort.serials.filter(s => s.status === 'active').length;
+    cohort.totalUnits = cohort.serials.length;
+  }
+  
+  console.log(`Processed ${cohorts.length} cohorts with ${cohorts.reduce((sum, c) => sum + c.serials.length, 0)} total serials`);
+  
+  return cohorts;
 };
 
 /**
@@ -1041,19 +1235,39 @@ const processSalesData = (data: any): Cohort[] => {
 export const fetchAggregatedClinicData = async (
   setIsLoading?: (loading: boolean) => void,
   setError?: (error: string | null) => void
-): Promise<Record<string, Cohort[]>> => {
+): Promise<Record<string, any>> => {
   if (setIsLoading) setIsLoading(true);
   if (setError) setError(null);
 
   try {
-    const response = await fetch('/all_clinics_aggregated_csa_data.json');
+    console.log("fetchAggregatedClinicData: Attempting to fetch /routes/clinic_data/aggregated-data");
+    const response = await fetch('/routes/clinic_data/aggregated-data'); // Updated to new API endpoint
+    console.log("fetchAggregatedClinicData: Response received, status:", response.status);
     if (!response.ok) {
-      throw new Error(`Failed to fetch aggregated data: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error("fetchAggregatedClinicData: Response not OK. Status:", response.status, "Text:", errorText);
+      throw new Error(`Failed to fetch aggregated data: ${response.status} ${response.statusText} - ${errorText}`);
     }
     const rawData = await response.json();
-    const result: Record<string, Cohort[]> = {};
+    const result: Record<string, any> = {};
     for (const [clinicName, clinicData] of Object.entries<any>(rawData)) {
-      result[clinicName] = processZohoData(clinicData);
+      result[clinicName] = {
+        // Processed cohorts
+        cohorts: processZohoData(clinicData),
+        // Group details
+        groupDetails: {
+          contactIds: clinicData.processing_info?.contact_ids_processed || [],
+          customerGroup: clinicData.processing_info?.customer_name_or_group || ''
+        },
+        // Pass through step1_data if it exists
+        ...(clinicData.step1_data && { step1_data: clinicData.step1_data }),
+        // Pass through csa_replacement_chains if it exists
+        ...(clinicData.csa_replacement_chains && { csa_replacement_chains: clinicData.csa_replacement_chains })
+      };
+      if (clinicName === 'Vegas_Breathe_Free') {
+        console.log(`fetchAggregatedClinicData: Vegas_Breathe_Free rawData keys: ${Object.keys(clinicData).join(', ')}`);
+        console.log(`fetchAggregatedClinicData: Vegas_Breathe_Free result object keys: ${Object.keys(result[clinicName]).join(', ')}`);
+      }
     }
     return result;
   } catch (err) {
@@ -1061,5 +1275,28 @@ export const fetchAggregatedClinicData = async (
     throw err;
   } finally {
     if (setIsLoading) setIsLoading(false);
+  }
+};
+
+/**
+ * Manually trigger clinic data sync
+ */
+export const triggerManualSync = async (): Promise<{success: boolean, message: string, clinics_processed?: number}> => {
+  try {
+    const response = await fetch('/routes/clinic_data/sync-now', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Sync failed: ${response.status} ${response.statusText}`);
+    }
+    
+    return await response.json();
+  } catch (err) {
+    console.error("Error triggering manual sync:", err);
+    throw err;
   }
 };

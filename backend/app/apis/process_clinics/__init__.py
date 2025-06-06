@@ -86,7 +86,7 @@ def get_task_status(task_id: str):
     )
 
 
-@router.get("/clinic-data/{json_key}")
+@router.get("/clinic-data/{json_key}") # Add leading slash back
 def get_clinic_data(json_key: str):
     """Return aggregated clinic data from disk."""
     safe_name = os.path.basename(json_key)

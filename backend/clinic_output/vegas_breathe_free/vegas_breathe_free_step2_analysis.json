@@ -1,0 +1,786 @@
+{
+    "processing_info": {
+        "json_file_path": "clinic_output/vegas_breathe_free/vegas_breathe_free_step1_data.json",
+        "customer_name_or_group": "Group (3565249000004892001)",
+        "contact_ids_processed": [
+            "3565249000004892001"
+        ],
+        "sales_order_count": 3,
+        "sales_return_count": 6,
+        "target_skus": [
+            "P313N00",
+            "P417N00"
+        ]
+    },
+    "warnings_errors": [],
+    "csa_replacement_chains": [
+        {
+            "cohort_summary": {
+                "orderId": "SO-00199",
+                "csaLength": "1 year",
+                "startDate": "2024-02-16",
+                "startSource": "Earliest ship/delivery date",
+                "endDate": "2025-02-16",
+                "warningDate": "2024-12-18",
+                "remainingReplacements": 40,
+                "totalReplacements": 48,
+                "initialScopeCount": 12,
+                "currentValidatedInFieldCount": 10,
+                "available_slots_pre_orphan_assignment": 2
+            },
+            "chains_by_sku": {
+                "P313N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0893",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0893",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.1017",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.1017",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.2900",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "390.0207",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "390.0207",
+                        "handoffs": [
+                            "Returned 380.2900 on 2024-06-25, replaced by 390.0207 shipped on 2024-07-01"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.3355",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.3355",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.2881",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.1897",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.1897",
+                        "handoffs": [
+                            "Returned 380.2881 on 2024-12-30, replaced by 380.1897 shipped on 2025-01-08"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.2904",
+                                "sku": "P313N00"
+                            },
+                            {
+                                "serial": "380.1005",
+                                "sku": "P313N00"
+                            }
+                        ],
+                        "final_status": "returned_no_replacement_found",
+                        "final_status_description": "Returned (No Replacement Shipment Found)",
+                        "final_serial_number": "380.1005",
+                        "handoffs": [
+                            "Returned 380.2904 on 2024-12-30, replaced by 380.1005 shipped on 2025-01-08"
+                        ]
+                    }
+                ],
+                "P417N00": [
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0095",
+                                "sku": "P417N00"
+                            },
+                            {
+                                "serial": "380.6956",
+                                "sku": "P417N00"
+                            },
+                            {
+                                "serial": "380.0203",
+                                "sku": "P417N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0203",
+                        "handoffs": [
+                            "Returned 380.0095 on 2024-06-25, replaced by 380.6956 shipped on 2024-07-01",
+                            "Returned 380.6956 on 2024-12-30, replaced by 380.0203 shipped on 2025-01-08"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0284",
+                                "sku": "P417N00"
+                            },
+                            {
+                                "serial": "380.7015",
+                                "sku": "P417N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.7015",
+                        "handoffs": [
+                            "Returned 380.0284 on 2024-12-30, replaced by 380.7015 shipped on 2025-01-08"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0287",
+                                "sku": "P417N00"
+                            },
+                            {
+                                "serial": "380.7197",
+                                "sku": "P417N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.7197",
+                        "handoffs": [
+                            "Returned 380.0287 on 2024-12-30, replaced by 380.7197 shipped on 2025-01-08"
+                        ]
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0460",
+                                "sku": "P417N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0460",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0462",
+                                "sku": "P417N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.0462",
+                        "handoffs": []
+                    },
+                    {
+                        "chain": [
+                            {
+                                "serial": "380.0945",
+                                "sku": "P417N00"
+                            },
+                            {
+                                "serial": "380.6838",
+                                "sku": "P417N00"
+                            }
+                        ],
+                        "final_status": "inField",
+                        "final_status_description": "In Field",
+                        "final_serial_number": "380.6838",
+                        "handoffs": [
+                            "Returned 380.0945 on 2024-12-30, replaced by 380.6838 shipped on 2025-01-08"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "speculative_orphan_analysis": [
+        {
+            "chain": [
+                {
+                    "serial": "390.0219",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.0219",
+            "starter_serial": "390.0219",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "390.0220",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.0220",
+            "starter_serial": "390.0220",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "390.0221",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.0221",
+            "starter_serial": "390.0221",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "390.0222",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.0222",
+            "starter_serial": "390.0222",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "390.1986",
+                    "sku": "P417N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.1986",
+            "starter_serial": "390.1986",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+            "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+            "cohort_isolation_status": "capacity_constrained",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "390.0211",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.0211",
+            "starter_serial": "390.0211",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00199",
+            "assignment_reason": "Initial ship date 2024-07-01 is on or after cohort SO-00199 start date 2024-02-16. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        },
+        {
+            "chain": [
+                {
+                    "serial": "390.0214",
+                    "sku": "P313N00"
+                }
+            ],
+            "handoffs": [],
+            "final_status": "inField",
+            "final_status_description": "Status: inField",
+            "final_serial_number": "390.0214",
+            "starter_serial": "390.0214",
+            "assignment_method": "enhanced_logic_with_explicit_links",
+            "assigned_cohort": "SO-00199",
+            "assignment_reason": "Initial ship date 2024-07-01 is on or after cohort SO-00199 start date 2024-02-16. Assigned as in-field, capacity OK.",
+            "cohort_isolation_status": "date_based_new_assignment",
+            "original_cohort": null
+        }
+    ],
+    "status_summary": {
+        "total_shipped_unique": 27,
+        "total_returned_plausible_unique": 8,
+        "serials_involved_in_validated_chains": 20,
+        "serials_involved_in_any_chain_analysis": 27,
+        "identified_orphan_serials": 15,
+        "suspected_in_field": {
+            "count": 19,
+            "serial_numbers": [
+                "380.0203",
+                "380.0460",
+                "380.0462",
+                "380.0893",
+                "380.1005",
+                "380.1017",
+                "380.1897",
+                "380.3355",
+                "380.6838",
+                "380.7015",
+                "380.7197",
+                "390.0207",
+                "390.0211",
+                "390.0214",
+                "390.0219",
+                "390.0220",
+                "390.0221",
+                "390.0222",
+                "390.1986"
+            ]
+        }
+    },
+    "serialStep1DetailsMap": {
+        "380.0203": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "380.7015": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "380.7197": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "380.6838": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "390.1986": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "380.1897": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "380.1005": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00385",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-12-30",
+            "packageNumber": "PKG-00538",
+            "shipmentDate": "2024-12-30"
+        },
+        "390.0207": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "390.0211": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "390.0214": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "390.0219": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "390.0220": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "390.0221": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "390.0222": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "380.6956": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00281",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-06-25",
+            "packageNumber": "PKG-00424",
+            "shipmentDate": "2024-06-25"
+        },
+        "380.0893": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.1017": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.2904": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.2900": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.3355": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.2881": {
+            "itemName": "HiFi Rigid Endoscope - 3mm x 130mm 0 deg",
+            "itemSku": "P313N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.0460": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.0287": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.0284": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00332",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.0462": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00333",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.0945": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00333",
+            "shipmentDate": "2024-02-16"
+        },
+        "380.0095": {
+            "itemName": "HiFi Rigid Sinuscopes - 4mm x 175mm, 0 deg Regular",
+            "itemSku": "P417N00",
+            "salesOrderNumber": "SO-00199",
+            "soCustomerName": "Vegas Breathe Free Sinus & Allergy Centers",
+            "salesOrderDate": "2024-02-16",
+            "packageNumber": "PKG-00333",
+            "shipmentDate": "2024-02-16"
+        }
+    },
+    "speculative_orphan_analysis_by_cohort": {
+        "No Suitable Cohort Found (Capacity)": {
+            "P313N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "390.0219",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.0219",
+                    "starter_serial": "390.0219",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "390.0220",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.0220",
+                    "starter_serial": "390.0220",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "390.0221",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.0221",
+                    "starter_serial": "390.0221",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "390.0222",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.0222",
+                    "starter_serial": "390.0222",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                }
+            ],
+            "P417N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "390.1986",
+                            "sku": "P417N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.1986",
+                    "starter_serial": "390.1986",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "No Suitable Cohort Found (Capacity)",
+                    "assignment_reason": "All date-suitable cohorts are at in-field capacity for orphan.",
+                    "cohort_isolation_status": "capacity_constrained",
+                    "original_cohort": null
+                }
+            ]
+        },
+        "SO-00199": {
+            "P313N00": [
+                {
+                    "chain": [
+                        {
+                            "serial": "390.0211",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.0211",
+                    "starter_serial": "390.0211",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00199",
+                    "assignment_reason": "Initial ship date 2024-07-01 is on or after cohort SO-00199 start date 2024-02-16. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                },
+                {
+                    "chain": [
+                        {
+                            "serial": "390.0214",
+                            "sku": "P313N00"
+                        }
+                    ],
+                    "handoffs": [],
+                    "final_status": "inField",
+                    "final_status_description": "Status: inField",
+                    "final_serial_number": "390.0214",
+                    "starter_serial": "390.0214",
+                    "assignment_method": "enhanced_logic_with_explicit_links",
+                    "assigned_cohort": "SO-00199",
+                    "assignment_reason": "Initial ship date 2024-07-01 is on or after cohort SO-00199 start date 2024-02-16. Assigned as in-field, capacity OK.",
+                    "cohort_isolation_status": "date_based_new_assignment",
+                    "original_cohort": null
+                }
+            ]
+        }
+    },
+    "cohort_isolation_analysis": {
+        "statistics": {
+            "sro_same_cohort_assignments": 0,
+            "sro_cross_cohort_assignments": 0,
+            "orphan_same_cohort_assignments": 0,
+            "orphan_cross_cohort_blocked": 0
+        },
+        "violations": [],
+        "violation_count": 0,
+        "isolation_effectiveness": {
+            "sro_isolation_rate": 1.0,
+            "orphan_isolation_rate": 1.0
+        }
+    }
+}
